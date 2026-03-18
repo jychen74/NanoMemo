@@ -1,0 +1,9 @@
+---
+title: "Workflows"
+
+listing:
+  contents: 05_workflows
+  type: default
+  sort: "file-name"
+  fields: [title]
+---

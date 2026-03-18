@@ -1,0 +1,243 @@
+---
+title: "FASTQ QC"
+subtitle: "How to evaluate raw Nanopore sequencing reads before downstream analysis"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page explains how to perform and interpret FASTQ-level quality control in Nanopore sequencing before downstream analysis.
+:::
+
+## Definition
+
+FASTQ QC 指的是在 downstream analysis 之前，先對原始 reads 的基本品質與結構做初步檢查。
+
+對 Nanopore 資料來說，FASTQ QC 通常回答以下問題：
+
+- 這批 reads 的整體品質如何？
+- read 數量與總 bases 是否足夠？
+- read length 分布是否合理？
+- 是否存在明顯異常，導致後續分析結果不可靠？
+
+FASTQ QC 不是最終判讀，但它是進入後續分析前最重要的第一關。
+
+## Why it matters
+
+在 Nanopore sequencing workflow 中，如果 FASTQ QC 沒先看清楚，就很容易出現以下問題：
+
+- downstream 結果很差，卻不知道是 sample 問題還是分析問題
+- 讀到少量目標訊號時，無法判斷是低 abundance 還是資料本身品質不足
+- 分析花很多時間，但最後發現 run 本身就不適合繼續解讀
+
+FASTQ QC 的價值不在於追求「漂亮數字」，而在於判斷：
+
+> **這批資料是否足以支撐接下來想做的分析**
+
+## What to check
+
+FASTQ QC 最常看的幾個核心面向如下。
+
+### 1. Read count
+
+read count 是最基本的資料量指標之一。
+
+它回答的是：
+
+- 這批資料總共有多少條 reads？
+- 不同樣本之間 read 數量是否差太多？
+- 是否出現明顯低產出樣本？
+
+實務上，read count 太低時，常會限制：
+
+- 病原偵測靈敏度
+- taxonomic classification 穩定性
+- alignment coverage
+
+但 read count 多，不代表資料一定好，仍需搭配其他指標一起看。
+
+### 2. Total bases
+
+total bases 代表總共產生了多少鹼基數。
+
+這個值比單純 read count 更能反映實際資料量，因為：
+
+- 有些 run reads 多，但都很短
+- 有些 run reads 較少，但總 bases 很高
+
+在 Nanopore 中，total bases 通常和後續的資料利用率很有關係，特別是：
+
+- sequencing depth
+- assembly 潛力
+- target detection sensitivity
+
+### 3. Read length distribution
+
+Nanopore 的重要特性之一是 long reads，因此 read length 分布很值得看。
+
+可以從這裡判斷：
+
+- 這批 DNA 是否過度 fragmented
+- library preparation 是否保留了足夠長的片段
+- 這批資料偏向短 reads 還是長 reads
+
+這一項通常要搭配：
+
+- N50
+- mean read length
+- median read length
+- length histogram
+
+一起看會比較有意義。
+
+### 4. Quality score distribution
+
+quality score（Q score）反映的是 basecalling 品質。
+
+FASTQ QC 中，Q score 常被拿來做快速品質檢查，但不應單獨使用。
+
+在實務上，Q score 的重點不是追求單一高值，而是看：
+
+- 整體分布是否合理
+- 是否有大量極低品質 reads
+- 不同樣本之間是否差異過大
+
+### 5. Abnormal patterns
+
+FASTQ QC 也要注意是否有一些「一眼就不對勁」的異常現象，例如：
+
+- read 數量異常低
+- read 長度過短
+- 品質分布明顯偏低
+- 樣本之間落差過大
+- 整批資料與預期完全不符
+
+這些現象未必能直接告訴說明原因，但會提醒：
+
+> 這批資料不能直接進入後續解讀，而是需要先釐清問題來源
+
+## How to interpret
+
+這一段的重點不是單看某一個值，而是整體判斷資料是否「適合的分析目的」。
+
+### In practice
+
+在 Nanopore workflow 中，FASTQ QC 的實務解讀通常是這樣：
+
+- 若目標是 **初步 pathogen screening**  
+  重點會放在：是否有足夠 usable reads、是否有合理 total bases、品質是否不至於太差
+
+- 若目標是 **reference alignment / validation**  
+  重點會放在：Q score、read length、後續 mapping potential
+
+- 若目標是 **assembly / structural analysis**  
+  重點會放在：read length distribution、N50、total bases
+
+換句話說：
+
+> 同一批 FASTQ，在不同分析目的下，QC 判斷標準不一定相同
+
+### What to compare with
+
+FASTQ QC 最好至少一起比較這些資訊：
+
+- read count
+- total bases
+- Q score
+- read length / N50
+- NanoPlot 視覺化結果
+- sequencing depth（若已有 reference）
+- negative control 或其他樣本表現
+
+如果只看其中一個值，很容易誤判。
+
+例如：
+
+- read count 很高，但 reads 都很短
+- Q score 還可以，但 total bases 太少
+- N50 很漂亮，但 usable reads 不夠
+- total bases 很多，但大部分都是 host background
+
+## Common pitfalls
+
+::: {.callout-warning}
+FASTQ QC 最常見的錯誤，不是數值看錯，而是解讀方式太單一。
+:::
+
+- 只看 Q score，不看 read length 與資料量
+- 只看 read count，不看 total bases
+- 只看 summary statistics，不看 distribution
+- 把「數值不漂亮」直接當成資料不能用
+- 把「數值漂亮」直接當成分析一定可靠
+- 不依分析目的調整 QC 觀點
+
+## Common tools
+
+FASTQ QC 常用工具包括：
+
+- `NanoPlot`
+- `NanoStat`
+- `seqkit`
+- basecalling summary outputs
+- 自訂統計腳本
+
+不同工具用途稍有不同：
+
+- `NanoPlot`：視覺化最完整
+- `NanoStat`：快速 summary
+- `seqkit stats`：快速查看序列基本統計
+
+## Example commands
+
+### NanoStat
+
+```bash
+NanoStat --fastq reads.fastq
+```
+
+### NanoPlot
+
+```bash
+NanoPlot --fastq reads.fastq -o nanoplot_output
+```
+
+### seqkit
+
+```bash
+seqkit stats reads.fastq
+```
+
+## Practical QC mindset
+
+FASTQ QC 可以把它想成三個層次：
+
+### Layer 1：資料有多少？
+- read count
+- total bases
+
+### Layer 2：資料長什麼樣？
+- read length
+- N50
+- distribution
+
+### Layer 3：資料能不能用？
+- Q score
+- abnormal patterns
+- downstream suitability
+
+真正重要的，不是某一個數字，而是：
+
+> **這批 reads 是否足以支撐接下來要分析問題**
+
+## Quick takeaway
+
+::: {.callout-tip}
+FASTQ QC 是 Nanopore downstream analysis 前的第一層品質檢查。  
+它不只是看 reads 多不多、Q 值高不高，而是整合 read count、total bases、read length、quality 與分析目的，判斷資料是否足夠可靠。
+:::
+
+## Related pages
+
+- [Q score](../01_basic_concepts/Q_score.qmd)
+- [N50 / read length](../01_basic_concepts/N50.qmd)
+- [Sequencing depth](sequencing_depth.qmd)
+- [NanoPlot](nanoplot.qmd)

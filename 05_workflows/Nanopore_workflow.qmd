@@ -1,0 +1,237 @@
+---
+title: "Nanopore analysis workflow"
+subtitle: "End-to-end pipeline for pathogen detection and interpretation"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page provides a complete end-to-end Nanopore analysis workflow, from raw data to biological interpretation.
+:::
+
+## Overview
+
+Nanopore sequencing 的分析流程可以拆成四個核心層級：
+
+1. Data quality（資料品質）
+2. Composition（樣本組成）
+3. Validation（結果驗證）
+4. Interpretation（生物意義）
+
+👉 每一層回答不同問題，缺一不可
+
+---
+
+## Full workflow
+
+```{mermaid}
+flowchart TD
+    A[Raw signal / FAST5] --> B[Basecalling]
+    B --> C[FASTQ reads]
+
+    C --> D[QC: Q score / read length]
+    D --> E{QC pass?}
+
+    E -->|No| F[Re-extract / clean-up / re-sequence]
+    E -->|Yes| G[Kraken2 classification]
+
+    G --> H{Candidate pathogen?}
+
+    H -->|No| I[Check database / contamination / depth]
+    H -->|Yes| J[minimap2 alignment]
+
+    J --> K[Coverage / depth / mapping quality]
+
+    K --> L{Sufficient evidence?}
+
+    L -->|No| M[Increase depth / refine reference]
+    L -->|Yes| N[Biological interpretation]
+
+    N --> O[Report / decision making]
+```
+
+---
+
+## Step-by-step explanation
+
+### 1️⃣ Basecalling
+
+- 將 raw signal（FAST5）轉成 FASTQ
+- 工具：Guppy / Dorado
+
+👉 這一步決定後續所有分析品質
+
+---
+
+### 2️⃣ QC（Quality control）
+
+對 FASTQ 做基本評估：
+
+- Q score（品質）
+- Read length / N50
+- Total bases
+- Read count
+
+👉 對應頁面：
+
+- [Q score](../01_basic_concepts/Q_score.qmd)
+- [N50 / read length](../01_basic_concepts/N50.qmd)
+
+---
+
+### 3️⃣ Classification（Kraken2）
+
+目的：
+
+> 找出樣本中「可能存在的生物」
+
+特點：
+
+- 快速
+- 高通量
+- 適合初步篩檢
+
+👉 對應頁面：
+
+- [Kraken2](../04_taxonomy/kraken2.qmd)
+
+---
+
+### 4️⃣ Alignment（minimap2）
+
+目的：
+
+> 驗證特定目標是否存在
+
+評估指標：
+
+- coverage
+- depth
+- mapping quality
+- read consistency
+
+👉 對應頁面：
+
+- [minimap2](../03_alignment/minimap2.qmd)
+
+---
+
+### 5️⃣ Interpretation
+
+這一步最關鍵，也是最容易被忽略：
+
+需要整合：
+
+- read count
+- coverage
+- negative control
+- biological plausibility
+- sample context
+
+👉 這一步沒有單一工具可以取代
+
+---
+
+## Key decision points
+
+### QC 不佳
+
+👉 問題可能在：
+
+- DNA degradation
+- extraction method
+- library prep
+- contamination
+
+👉 不建議直接往下分析
+
+---
+
+### Kraken2 有 hits
+
+👉 不代表一定存在！
+
+需要：
+
+- minimap2 驗證
+- 看 coverage（不是只看 read 數）
+
+---
+
+### minimap2 有 alignment
+
+👉 要確認：
+
+- 是否為特異性 mapping
+- 是否有均勻 coverage
+- 是否可能為 contamination
+
+---
+
+## Minimal working pipeline（實務版）
+
+```bash
+# 1. QC
+NanoPlot --fastq reads.fastq -o qc_report
+
+# 2. classification
+kraken2 --db kraken_db reads.fastq --report report.txt > output.txt
+
+# 3. alignment
+minimap2 -ax map-ont ref.fa reads.fastq > aln.sam
+```
+
+---
+
+## Common pitfalls
+
+::: {.callout-warning}
+Nanopore workflow 最常見錯誤來自「過度簡化分析流程」。
+:::
+
+- 只做 Kraken2 就下結論
+- 忽略 QC
+- 不看 coverage
+- 不設 negative control
+- 過度解讀低 read count
+
+---
+
+## Best practice summary
+
+::: {.callout-tip}
+一個可靠的 Nanopore 分析流程應該同時具備：
+
+- QC（確保資料可信）
+- Classification（找方向）
+- Alignment（確認證據）
+- Interpretation（整合判讀）
+:::
+
+---
+
+## Suggested figures（極需）
+
+### 🖼️ Figure 1（已經有了）
+
+👉 Mermaid workflow（上面那張）
+
+---
+
+### 🖼️ Figure 2（未來可以加）
+
+👉 真實案例：
+
+- Kraken2 barplot
+- minimap2 coverage plot
+
+👉 提升網站變「教學等級」
+
+---
+
+## Related pages
+
+- [Kraken2 vs minimap2](Kraken2_vs_minimap2.qmd)
+- [Q score](../01_basic_concepts/Q_score.qmd)
+- [N50 / read length](../01_basic_concepts/N50.qmd)
+- [Kraken2](../04_taxonomy/kraken2.qmd)
+- [minimap2](../03_alignment/minimap2.qmd)

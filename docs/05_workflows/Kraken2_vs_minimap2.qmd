@@ -1,0 +1,213 @@
+---
+title: "Kraken2 vs minimap2"
+subtitle: "When to use taxonomy classification vs alignment in Nanopore analysis"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page compares Kraken2 and minimap2 in Nanopore workflows, focusing on their roles, strengths, limitations, and how to use them together in practice.
+:::
+
+## Overview
+
+在 Nanopore 分析中，`Kraken2` 與 `minimap2` 常常被同時提到，但它們其實回答的是**完全不同的問題**：
+
+- Kraken2：這條 read **像哪一類生物？**（分類）
+- minimap2：這條 read **對 reference 的哪個位置最相似？**（比對）
+
+👉 兩者不是互相取代，而是 **不同層次的工具**
+
+---
+
+## Core difference
+
+| Aspect | Kraken2 | minimap2 |
+|--------|--------|----------|
+| Type | Taxonomy classifier | Alignment tool |
+| Method | k-mer matching | Sequence alignment |
+| Question | 這條 read 屬於哪個分類群？ | 這條 read 對 reference 哪裡？ |
+| Speed | 很快 | 中等 |
+| Sensitivity | 依賴 database | 依賴 reference |
+| Output | taxonomy labels | alignment (SAM/BAM/PAF) |
+| Typical use | screening | validation / detailed analysis |
+
+---
+
+## Conceptual difference
+
+### Kraken2
+
+- 利用 k-mer 與 database 比對
+- 給出分類（通常到 species / genus level）
+- 適合回答：
+
+> 「樣本裡可能有什麼？」
+
+---
+
+### minimap2
+
+- 將 reads 對到 reference sequence
+- 提供 alignment detail（位置、coverage、mismatch）
+- 適合回答：
+
+> 「這條 read 是否支持某個特定目標？」
+
+---
+
+## Workflow role
+
+### Typical Nanopore pathogen workflow
+
+1. FASTQ QC  
+2. 🔍 **Kraken2（初步篩檢）**  
+3. 🎯 **minimap2（驗證 / alignment）**  
+4. downstream interpretation  
+
+👉 這是一個很常見、也很穩的 pipeline
+
+---
+
+## Practical scenarios
+
+### Scenario 1：未知樣本（exploration）
+
+👉 問題：樣本裡有什麼？
+
+✔ 建議：
+
+- 先用 Kraken2
+- 找出 candidate organisms
+- 再挑重點用 minimap2 驗證
+
+---
+
+### Scenario 2：已知目標（targeted detection）
+
+👉 問題：是否有特定病原？
+
+✔ 建議：
+
+- 直接用 minimap2 對 reference
+- 檢查 coverage / mapping quality
+- Kraken2 可作為輔助
+
+---
+
+### Scenario 3：結果不一致
+
+👉 Kraken2 有，但 minimap2 沒有
+
+可能原因：
+
+- database bias
+- k-mer overlap（近緣物種）
+- reference 不完整
+- reads 太短或品質問題
+
+👉 這時 **不能只相信 Kraken2**
+
+---
+
+### Scenario 4：minimap2 有，但 Kraken2 沒有
+
+可能原因：
+
+- database 沒有該物種
+- 分類停在高層級（genus / family）
+- read 數量太少
+
+👉 這時 minimap2 反而更可信
+
+---
+
+## Common pitfalls
+
+::: {.callout-warning}
+最常見的錯誤，是把 Kraken2 當作最終答案。
+:::
+
+- 把 Kraken2 report 當成 definitive identification
+- 不做 alignment validation
+- 忽略 database completeness
+- 不看 read count / coverage
+- 不使用 negative control
+
+---
+
+## Best practice
+
+::: {.callout-tip}
+Kraken2 用來找方向，minimap2 用來確認證據。
+:::
+
+建議 workflow：
+
+- Step 1：Kraken2 → 找 candidate
+- Step 2：minimap2 → 驗證 alignment
+- Step 3：整合 read count、coverage、control
+
+---
+
+## Suggested visualization
+
+可以加的圖（很值得放）：
+
+---
+
+### 🖼️ 圖 1：Workflow diagram（強烈推薦）
+
+👉 用 Mermaid（直接放在 qmd）
+
+```{mermaid}
+flowchart LR
+    A[FASTQ reads] --> B[Kraken2 classification]
+    B --> C{Candidate detected?}
+    C -->|Yes| D[minimap2 alignment]
+    C -->|No| E[Review QC / database]
+    D --> F[Coverage / validation]
+```
+
+👉 這張圖會讓整頁「一秒懂」
+
+---
+
+### 🖼️ 圖 2：Concept difference（選用）
+
+之後可以自己畫或用簡單示意：
+
+- Kraken2：k-mer match（碎片）
+- minimap2：alignment（整段對齊）
+
+👉 搜尋關鍵字：
+```
+k-mer matching diagram
+sequence alignment diagram long read
+```
+
+---
+
+### 🖼️ 圖 3：結果對比（進階）
+
+之後可以加：
+
+- Kraken2 report（bar chart）
+- minimap2 coverage plot
+
+👉 讓這頁變成教學等級
+
+---
+
+## Quick takeaway
+
+::: {.callout-tip}
+Kraken2 與 minimap2 並不是競爭關係，而是互補工具。  
+Kraken2 適合快速分類與探索，minimap2 適合精確比對與驗證。  
+在 Nanopore workflow 中，最穩定的策略通常是：先用 Kraken2 找方向，再用 minimap2 確認。
+:::
+
+## Related pages
+
+- [Kraken2](../04_taxonomy/kraken2.qmd)
+- [minimap2](../03_alignment/minimap2.qmd)
+- [FASTQ QC](../02_sequencing_qc/fastq_qc.qmd)

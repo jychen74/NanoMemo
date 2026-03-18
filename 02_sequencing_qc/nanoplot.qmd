@@ -1,0 +1,337 @@
+---
+title: "NanoPlot"
+subtitle: "Visualizing and interpreting Nanopore sequencing quality and read characteristics"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page explains what NanoPlot shows, how to generate its reports, and how to interpret common QC patterns in Nanopore sequencing data.
+:::
+
+## Definition
+
+`NanoPlot` 是 Nanopore 常用的 QC 視覺化工具，用來整理與呈現 reads 的基本特徵，例如：
+
+- read length
+- quality score
+- total yield
+- read count
+- length vs quality relationship
+- yield over time
+
+它的價值不只是「把圖畫出來」，而是幫助快速判斷：
+
+> 這批資料的整體表現如何，以及是否有明顯異常需要注意。
+
+## Why it matters
+
+在 Nanopore workflow 中，單看 summary statistics 往往不夠。
+
+例如：
+
+- 平均 read length 不錯，但其實大多數 reads 很短
+- Q score 看似正常，但有一群極低品質 reads
+- total yield 還可以，但 run 很早就衰退
+
+這些情況若只看表格，常常不容易發現；  
+但用 NanoPlot 的圖形化結果，通常會一眼看出來。
+
+因此，NanoPlot 特別適合做：
+
+- FASTQ QC 的視覺化補充
+- 不同 run 或樣本之間的快速比較
+- 問題排查（DNA 品質、library prep、flow cell 表現）
+
+## Installation
+
+### pip
+
+```bash
+pip install NanoPlot
+```
+
+### conda
+
+```bash
+conda install -c bioconda nanoplot
+```
+
+## Basic usage
+
+### FASTQ input
+
+```bash
+NanoPlot --fastq reads.fastq -o nanoplot_output
+```
+
+### gzipped FASTQ input
+
+```bash
+NanoPlot --fastq reads.fastq.gz -o nanoplot_output
+```
+
+### BAM input
+
+```bash
+NanoPlot --bam alignment.bam -o nanoplot_output
+```
+
+### Multiple files
+
+```bash
+NanoPlot --fastq sample1.fastq sample2.fastq -o nanoplot_output
+```
+
+## Typical output
+
+NanoPlot 通常會產生：
+
+- HTML report
+- summary statistics
+- PNG / PDF figures
+
+這些輸出很適合用來做：
+
+- QC 紀錄
+- run review
+- 報告附圖
+- 教學示例
+
+## What to interpret
+
+NanoPlot 最有價值的地方，在於它能把多個 QC 指標視覺化。  
+下面是最常見、也最值得看的幾類圖。
+
+## 1. Read length distribution
+
+這類圖通常是 histogram 或 density plot，用來看整批 reads 的長度分布。
+
+### What it shows
+
+- reads 是偏短還是偏長
+- 分布是否集中
+- 是否存在長尾
+- 是否有異常的大量短片段
+
+### How to interpret
+
+常見情況包括：
+
+- **長尾分布明顯**  
+  這通常是 Nanopore 資料常見的正常現象，代表有一部分 reads 很長。
+
+- **整體偏短**  
+  可能代表：
+  - DNA 本身已 degraded
+  - extraction 過程造成 fragmentation
+  - library prep 保留長片段效果不佳
+
+- **雙峰或多峰分布**  
+  可能代表：
+  - 不同片段族群混在一起
+  - 某些步驟造成特定長度偏多
+  - 樣本來源較複雜
+
+### Practical note
+
+這張圖應與：
+
+- N50
+- mean read length
+- median read length
+
+一起解讀，而不是單看圖形印象。
+
+## 2. Quality score distribution
+
+這類圖用來看 reads 的 Q score 分布。
+
+### What it shows
+
+- 整體品質分布是否集中
+- 是否有大量低品質 reads
+- 不同 run / 樣本之間是否有明顯差異
+
+### How to interpret
+
+常見情況包括：
+
+- **主要集中在中等 Q score 範圍**  
+  這通常是可接受的常見情形。
+
+- **整體偏低**  
+  可能與以下因素有關：
+  - DNA 品質不佳
+  - library prep 問題
+  - flow cell 表現較差
+  - basecalling 條件不同
+
+- **有明顯低品質尾端**  
+  代表一部分 reads 品質很低，後續分析時可能需特別留意 filtering。
+
+### Practical note
+
+Q score 不應單獨解讀。  
+即使 Q score 普通，只要：
+
+- read 數量足夠
+- target 可穩定檢出
+- alignment 表現合理
+
+資料仍可能有分析價值。
+
+## 3. Yield over time
+
+這類圖顯示 run 過程中資料產出的累積情況或時間變化。
+
+### What it shows
+
+- sequencing 是否穩定產出
+- flow cell 是否很早就衰退
+- 產出是否在前段快速完成
+
+### How to interpret
+
+常見情況包括：
+
+- **穩定上升後逐漸趨緩**  
+  通常屬於合理現象。
+
+- **很早就 plateau**  
+  可能代表：
+  - flow cell 狀態不佳
+  - loading 效率問題
+  - library 濃度或品質不足
+
+- **整體 yield 很低**  
+  需考慮：
+  - sample input 不足
+  - library prep 問題
+  - pore 活性問題
+
+### Practical note
+
+這張圖很適合拿來 review run quality，尤其是比較不同 run 的整體表現。
+
+## 4. Read length vs quality
+
+這通常是 scatter plot，用來看 read length 與 Q score 的關係。
+
+### What it shows
+
+- 長 reads 是否明顯品質較差
+- 是否存在特定區域的異常點群
+- length 與 quality 是否呈現明顯 trade-off
+
+### How to interpret
+
+常見情況包括：
+
+- **長 reads 與短 reads 品質差異不大**  
+  通常是較理想的情況。
+
+- **長 reads 普遍偏低品質**  
+  可能代表：
+  - library prep 對超長片段較不穩
+  - sample DNA 長片段品質不佳
+
+- **有一群特別短且低品質 reads**  
+  這類 reads 在後續分析中通常比較不具代表性，可能要留意是否需要 filtering。
+
+### Practical note
+
+這張圖很適合幫助判斷：
+
+> 問題是來自「整批資料」，還是只集中在某一類 reads。
+
+## Common QC patterns
+
+下面這些是 NanoPlot 常見、也最值得注意的 pattern。
+
+| Pattern | Possible interpretation |
+|---|---|
+| read 長度整體偏短 | DNA fragmentation / degraded sample |
+| Q score 整體偏低 | sample quality、library prep、flow cell 或 basecalling 問題 |
+| yield 很低 | input / loading / run performance 問題 |
+| yield 很早 plateau | flow cell 活性或 loading 問題 |
+| 長 reads 品質特別差 | 長片段穩定性不足 |
+| 大量極短 reads | sample fragmentation 或 library artifact |
+
+## How to use NanoPlot in practice
+
+NanoPlot 很適合放在這個流程位置：
+
+1. basecalling 完成  
+2. FASTQ QC summary  
+3. NanoPlot 視覺化  
+4. 判斷是否進入 downstream analysis
+
+也就是說，它不是取代 FASTQ QC summary，而是：
+
+> 把 FASTQ QC 的關鍵訊息看得更直觀。
+
+## Suggested interpretation workflow
+
+### Step 1：先看總量
+- read count
+- total bases
+- yield
+
+### Step 2：再看結構
+- read length distribution
+- N50
+- mean / median read length
+
+### Step 3：再看品質
+- Q score distribution
+- length vs quality
+
+### Step 4：最後看 run pattern
+- yield over time
+- 是否有異常衰退或早期 plateau
+
+## Common pitfalls
+
+::: {.callout-warning}
+NanoPlot 很容易被當成「只看圖漂不漂亮」，但真正重點是判斷資料是否適合後續分析。
+:::
+
+- 只看單一圖，不整合其他指標
+- 把漂亮的分布直接等同於可用資料
+- 忽略分析目的差異
+- 不把 NanoPlot 和 read count、Q score、N50 一起看
+- 看見異常圖型卻沒有回頭檢查 sample / library / run 情況
+
+## Practical commands
+
+### Standard FASTQ report
+
+```bash
+NanoPlot --fastq reads.fastq -o nanoplot_output
+```
+
+### Save plots as PNG
+
+```bash
+NanoPlot --fastq reads.fastq -o nanoplot_output --plots hex dot
+```
+
+### Compare BAM-based aligned reads
+
+```bash
+NanoPlot --bam aligned_reads.bam -o nanoplot_bam_output
+```
+
+## Quick takeaway
+
+::: {.callout-tip}
+NanoPlot 的核心價值不只是畫圖，而是幫助快速理解 reads 的長度、品質與產出模式。  
+在實務上，最有用的做法是把 NanoPlot 視為 FASTQ QC 的視覺化判讀工具，並和 Q score、N50、read count 與 downstream 目的一起整合解讀。
+:::
+
+## Related pages
+
+- [FASTQ QC](fastq_qc.qmd)
+- [Q score](../01_basic_concepts/Q_score.qmd)
+- [N50 / read length](../01_basic_concepts/N50.qmd)
+- [Sequencing depth](sequencing_depth.qmd)

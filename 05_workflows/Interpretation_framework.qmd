@@ -1,0 +1,192 @@
+---
+title: "Interpretation framework"
+subtitle: "How to interpret Nanopore pathogen detection results"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page provides a general framework for interpreting Nanopore sequencing results in pathogen detection, independent of specific experimental setups.
+:::
+
+## Overview
+
+Nanopore sequencing 可以快速產生大量 reads，但：
+
+> **detect ≠ true presence ≠ biological relevance**
+
+因此，結果判讀需要整合多個層面的證據，而不是依賴單一指標。
+
+---
+
+## Core principle
+
+Nanopore pathogen detection interpretation 應基於三個核心面向：
+
+1. Signal strength（訊號強度）
+2. Specificity（特異性）
+3. Context（生物與實驗脈絡）
+
+👉 三者缺一不可
+
+---
+
+## 1️⃣ Signal strength
+
+評估「訊號是否足夠支持存在」
+
+常用指標：
+
+- read count（reads 數）
+- total bases
+- relative abundance
+- depth（如果有 reference）
+
+### Interpretation concept
+
+- 高 read count → 較可信
+- 極低 read count → 需謹慎（可能 background）
+
+::: {.callout-warning}
+低 read count 的 detection 不應直接解讀為陽性。
+:::
+
+---
+
+## 2️⃣ Specificity
+
+評估「訊號是否真的來自目標」
+
+需要確認：
+
+- alignment quality（minimap2）
+- coverage pattern（是否均勻）
+- 是否為 conserved region（可能 cross-match）
+- database bias（Kraken2）
+
+### 常見問題
+
+- 近緣物種誤判
+- conserved gene（如 rRNA）造成假陽性
+- k-mer overlap
+
+👉 因此：
+
+> Kraken2 結果應由 alignment 驗證
+
+---
+
+## 3️⃣ Context
+
+這是最重要、也最常被忽略的一層
+
+需要考慮：
+
+- sample type（environment / tissue / culture）
+- expected microbiome
+- known contamination sources
+- negative control
+- experimental design
+
+### Example
+
+- 在 environmental sample 中偵測到低量 bacteria → 可能正常
+- 在 sterile tissue 中偵測到同樣 bacteria → 可能重要
+
+---
+
+## Integration logic
+
+實務上應整合三個面向：
+
+| Signal | Specificity | Context | Interpretation |
+|--------|------------|--------|----------------|
+| High | High | Consistent | Strong evidence |
+| Low | High | Consistent | Possible presence |
+| Low | Low | Inconsistent | Likely noise |
+| High | Low | Inconsistent | Suspect artifact |
+
+---
+
+## Minimal interpretation workflow
+
+```{mermaid}
+flowchart TD
+    A[Kraken2 detection] --> B[minimap2 validation]
+    B --> C{Good alignment?}
+
+    C -->|No| D[Likely false positive]
+    C -->|Yes| E[Check read count]
+
+    E --> F{Sufficient signal?}
+    F -->|No| G[Low confidence]
+    F -->|Yes| H[Check context]
+
+    H --> I{Biologically plausible?}
+    I -->|No| J[Possible contamination]
+    I -->|Yes| K[Supported detection]
+```
+
+---
+
+## Common pitfalls
+
+::: {.callout-warning}
+錯誤判讀通常來自「單一指標導向」。
+:::
+
+- 只看 Kraken2
+- 只看 read count
+- 不做 alignment
+- 忽略 negative control
+- 忽略 sample context
+
+---
+
+## Practical guidelines（general）
+
+以下為通用建議（非固定標準）：
+
+- 不依賴單一 read 作為證據
+- 優先確認 alignment quality
+- 檢查 coverage 是否合理
+- 與 negative control 比較
+- 將結果放入 biological context 解讀
+
+---
+
+## What this framework does NOT define
+
+::: {.callout-note}
+This framework does not define strict thresholds.
+:::
+
+以下項目需依不同實驗設定調整：
+
+- read count threshold
+- coverage cutoff
+- abundance cutoff
+- clinical significance criteria
+
+👉 這些通常屬於：
+
+- specific project
+- clinical validation
+- regulatory setting
+
+---
+
+## Quick takeaway
+
+::: {.callout-tip}
+Nanopore 結果判讀不是單一數值判斷，而是多層證據整合。  
+Signal、specificity 與 context 必須同時考量，才能避免 false positive 或 over-interpretation。
+:::
+
+---
+
+## Related pages
+
+- [Nanopore workflow](Nanopore_workflow.qmd)
+- [Kraken2 vs minimap2](Kraken2_vs_minimap2.qmd)
+- [Kraken2](../04_taxonomy/kraken2.qmd)
+- [minimap2](../03_alignment/minimap2.qmd)

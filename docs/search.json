@@ -1,0 +1,1209 @@
+[
+  {
+    "objectID": "workflows.html",
+    "href": "workflows.html",
+    "title": "Workflows",
+    "section": "",
+    "text": "Common contamination sources\n\n\n\n\n\n\n\n\n\n\nHost depletion strategy\n\n\n\n\n\n\n\n\n\n\nInterpretation framework\n\n\n\n\n\n\n\n\n\n\nKraken2 vs minimap2\n\n\n\n\n\n\n\n\n\n\nNanopore analysis workflow\n\n\n\n\n\n\n\n\n\n\nRead count vs confidence\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Categories",
+      "Workflows"
+    ]
+  },
+  {
+    "objectID": "templates/note-template_private.html",
+    "href": "templates/note-template_private.html",
+    "title": "Page title",
+    "section": "",
+    "text": "Note\n\n\n\nPrivate Internal workflow notes, decision rules, or operational details."
+  },
+  {
+    "objectID": "templates/note-template_private.html#definition",
+    "href": "templates/note-template_private.html#definition",
+    "title": "Page title",
+    "section": "Definition",
+    "text": "Definition\n用一句到三句話定義這個名詞、工具或概念。\n\n它是什麼\n它主要拿來做什麼\n它不等於什麼"
+  },
+  {
+    "objectID": "templates/note-template_private.html#why-it-matters",
+    "href": "templates/note-template_private.html#why-it-matters",
+    "title": "Page title",
+    "section": "Why it matters",
+    "text": "Why it matters\n說明為什麼這個概念重要，特別是在 Nanopore workflow 中的角色。\n\n為什麼需要知道它\n哪些分析判斷會用到它\n如果誤解，可能造成什麼問題"
+  },
+  {
+    "objectID": "templates/note-template_private.html#how-to-interpret",
+    "href": "templates/note-template_private.html#how-to-interpret",
+    "title": "Page title",
+    "section": "How to interpret",
+    "text": "How to interpret\n這一段是最重要的，盡量寫成「實務判讀」而不是教科書定義。\n\nIn practice\n\n在 ONT / pathogen detection 中通常怎麼看\n哪些情境下要特別注意\n哪些數值或現象不一定代表問題\n\n\n\nWhat to compare with\n\n可以搭配哪些指標一起看\n不要單獨看哪一個值就下結論"
+  },
+  {
+    "objectID": "templates/note-template_private.html#common-pitfalls",
+    "href": "templates/note-template_private.html#common-pitfalls",
+    "title": "Page title",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\n這裡列出最常見誤解或最容易踩雷的地方。\n\n\n\n誤解 1\n誤解 2\n誤解 3"
+  },
+  {
+    "objectID": "templates/note-template_private.html#tools-commands",
+    "href": "templates/note-template_private.html#tools-commands",
+    "title": "Page title",
+    "section": "Tools / commands",
+    "text": "Tools / commands\n列出常見相關工具、檔案格式或指令。\n\nCommon tools\n\ntool 1\ntool 2\ntool 3\n\n\n\nExample command\n# replace with a real example\ntool --input sample.fastq --output result.txt"
+  },
+  {
+    "objectID": "templates/note-template_private.html#quick-takeaway",
+    "href": "templates/note-template_private.html#quick-takeaway",
+    "title": "Page title",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\n用 2–4 句話總結這頁最重要的結論，讓自己未來回來看時能快速抓重點。"
+  },
+  {
+    "objectID": "templates/note-template_private.html#related-pages",
+    "href": "templates/note-template_private.html#related-pages",
+    "title": "Page title",
+    "section": "Related pages",
+    "text": "Related pages\n\nRelated page 1\nRelated page 2"
+  },
+  {
+    "objectID": "sequencing_qc.html",
+    "href": "sequencing_qc.html",
+    "title": "Sequencing QC",
+    "section": "",
+    "text": "FASTQ QC\n\n\n\n\n\n\n\n\n\n\nNanoPlot\n\n\n\n\n\n\n\n\n\n\nSequencing depth\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Categories",
+      "Sequencing QC"
+    ]
+  },
+  {
+    "objectID": "basic_concepts.html",
+    "href": "basic_concepts.html",
+    "title": "Basic concepts",
+    "section": "",
+    "text": "N50 / read length\n\n\n\n\n\n\n\n\n\n\nQ score\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Categories",
+      "Basic concepts"
+    ]
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html",
+    "href": "05_workflows/Read_count_vs_confidence.html",
+    "title": "Read count vs confidence",
+    "section": "",
+    "text": "Note\n\n\n\nPrivate This page documents internal logic for interpreting read count and confidence levels in detection workflows."
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#overview",
+    "href": "05_workflows/Read_count_vs_confidence.html#overview",
+    "title": "Read count vs confidence",
+    "section": "Overview",
+    "text": "Overview\nNanopore sequencing 在 pathogen detection 中：\n\nread count ≠ absolute quantification\n但也 ≠ 沒有意義\n\n👉 它是一種 semi-quantitative signal"
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#core-concept",
+    "href": "05_workflows/Read_count_vs_confidence.html#core-concept",
+    "title": "Read count vs confidence",
+    "section": "Core concept",
+    "text": "Core concept\nread count 反映：\n\nabundance（部分）\nsequencing depth\nlibrary bias\nstochastic variation\n\n因此：\n\nread count 必須與其他指標一起解讀"
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#signal-interpretation-layers",
+    "href": "05_workflows/Read_count_vs_confidence.html#signal-interpretation-layers",
+    "title": "Read count vs confidence",
+    "section": "Signal interpretation layers",
+    "text": "Signal interpretation layers\n\nLayer 1：Presence signal\n\n是否存在 reads？\n\n👉 只能回答：\n\n“可能存在”\n\n\n\n\nLayer 2：Strength\n\nread count\nrelative abundance\n\n👉 提供：\n\nsignal 強度\n\n\n\n\nLayer 3：Support\n\nalignment quality\ncoverage\n\n👉 提供：\n\n是否可信\n\n\n\n\nLayer 4：Context\n\nsample type\ncontrol\nbiology\n\n👉 決定：\n\n是否有意義"
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#conceptual-model",
+    "href": "05_workflows/Read_count_vs_confidence.html#conceptual-model",
+    "title": "Read count vs confidence",
+    "section": "Conceptual model",
+    "text": "Conceptual model\n\n\n\n\n\nflowchart TD\n    A[Read count] --&gt; B[Signal strength]\n    B --&gt; C[Alignment validation]\n    C --&gt; D[Context evaluation]\n    D --&gt; E[Confidence level]"
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#internal-interpretation-tiers可自行定義",
+    "href": "05_workflows/Read_count_vs_confidence.html#internal-interpretation-tiers可自行定義",
+    "title": "Read count vs confidence",
+    "section": "Internal interpretation tiers（可自行定義）",
+    "text": "Internal interpretation tiers（可自行定義）\n\n\n\nTier\nDescription\nConfidence\n\n\n\n\nTier 0\nNo detection\nNone\n\n\nTier 1\nVery low reads\nVery low\n\n\nTier 2\nModerate reads\nSuggestive\n\n\nTier 3\nHigh reads + good alignment\nStrong\n\n\n\n👉 ⚠️ threshold 需依專案定義"
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#key-influencing-factors",
+    "href": "05_workflows/Read_count_vs_confidence.html#key-influencing-factors",
+    "title": "Read count vs confidence",
+    "section": "Key influencing factors",
+    "text": "Key influencing factors\n\nsequencing depth\nhost DNA proportion\nlibrary efficiency\ngenome size（target organism）\nGC bias"
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#practical-considerations",
+    "href": "05_workflows/Read_count_vs_confidence.html#practical-considerations",
+    "title": "Read count vs confidence",
+    "section": "Practical considerations",
+    "text": "Practical considerations\n\nLow read count\n可能：\n\nearly infection\nlow abundance organism\ncontamination\n\n👉 必須搭配：\n\nalignment\ncontrol\n\n\n\n\nHigh read count\n通常：\n\n較可信 但仍需確認：\nspecificity\ncontext"
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#clinical-vs-environmental",
+    "href": "05_workflows/Read_count_vs_confidence.html#clinical-vs-environmental",
+    "title": "Read count vs confidence",
+    "section": "Clinical vs environmental",
+    "text": "Clinical vs environmental\n\nClinical sample\n\n偏向高 specificity\n低 read count 需謹慎\n\n\n\n\nEnvironmental sample\n\n高 diversity\n低 read count 常見"
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#key-principle",
+    "href": "05_workflows/Read_count_vs_confidence.html#key-principle",
+    "title": "Read count vs confidence",
+    "section": "Key principle",
+    "text": "Key principle\n\n\n\n\n\n\nTip\n\n\n\nRead count 是訊號強度，而不是證據本身。"
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#internal-notes可填",
+    "href": "05_workflows/Read_count_vs_confidence.html#internal-notes可填",
+    "title": "Read count vs confidence",
+    "section": "Internal notes（可填）",
+    "text": "Internal notes（可填）\n\nread count threshold：\ncoverage cutoff：\ncontrol rule：\nreporting criteria："
+  },
+  {
+    "objectID": "05_workflows/Read_count_vs_confidence.html#related-pages",
+    "href": "05_workflows/Read_count_vs_confidence.html#related-pages",
+    "title": "Read count vs confidence",
+    "section": "Related pages",
+    "text": "Related pages\n\nInterpretation framework\nContamination sources"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html",
+    "href": "05_workflows/kraken2_vs_minimap2.html",
+    "title": "Kraken2 vs minimap2",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page compares Kraken2 and minimap2 in Nanopore workflows, focusing on their roles, strengths, limitations, and how to use them together in practice."
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#overview",
+    "href": "05_workflows/kraken2_vs_minimap2.html#overview",
+    "title": "Kraken2 vs minimap2",
+    "section": "Overview",
+    "text": "Overview\n在 Nanopore 分析中，Kraken2 與 minimap2 常常被同時提到，但它們其實回答的是完全不同的問題：\n\nKraken2：這條 read 像哪一類生物？（分類）\nminimap2：這條 read 對 reference 的哪個位置最相似？（比對）\n\n👉 兩者不是互相取代，而是 不同層次的工具"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#core-difference",
+    "href": "05_workflows/kraken2_vs_minimap2.html#core-difference",
+    "title": "Kraken2 vs minimap2",
+    "section": "Core difference",
+    "text": "Core difference\n\n\n\n\n\n\n\n\nAspect\nKraken2\nminimap2\n\n\n\n\nType\nTaxonomy classifier\nAlignment tool\n\n\nMethod\nk-mer matching\nSequence alignment\n\n\nQuestion\n這條 read 屬於哪個分類群？\n這條 read 對 reference 哪裡？\n\n\nSpeed\n很快\n中等\n\n\nSensitivity\n依賴 database\n依賴 reference\n\n\nOutput\ntaxonomy labels\nalignment (SAM/BAM/PAF)\n\n\nTypical use\nscreening\nvalidation / detailed analysis"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#conceptual-difference",
+    "href": "05_workflows/kraken2_vs_minimap2.html#conceptual-difference",
+    "title": "Kraken2 vs minimap2",
+    "section": "Conceptual difference",
+    "text": "Conceptual difference\n\nKraken2\n\n利用 k-mer 與 database 比對\n給出分類（通常到 species / genus level）\n適合回答：\n\n\n「樣本裡可能有什麼？」\n\n\n\n\nminimap2\n\n將 reads 對到 reference sequence\n提供 alignment detail（位置、coverage、mismatch）\n適合回答：\n\n\n「這條 read 是否支持某個特定目標？」"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#workflow-role",
+    "href": "05_workflows/kraken2_vs_minimap2.html#workflow-role",
+    "title": "Kraken2 vs minimap2",
+    "section": "Workflow role",
+    "text": "Workflow role\n\nTypical Nanopore pathogen workflow\n\nFASTQ QC\n\n🔍 Kraken2（初步篩檢）\n\n🎯 minimap2（驗證 / alignment）\n\ndownstream interpretation\n\n👉 這是一個很常見、也很穩的 pipeline"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#practical-scenarios",
+    "href": "05_workflows/kraken2_vs_minimap2.html#practical-scenarios",
+    "title": "Kraken2 vs minimap2",
+    "section": "Practical scenarios",
+    "text": "Practical scenarios\n\nScenario 1：未知樣本（exploration）\n👉 問題：樣本裡有什麼？\n✔ 建議：\n\n先用 Kraken2\n找出 candidate organisms\n再挑重點用 minimap2 驗證\n\n\n\n\nScenario 2：已知目標（targeted detection）\n👉 問題：是否有特定病原？\n✔ 建議：\n\n直接用 minimap2 對 reference\n檢查 coverage / mapping quality\nKraken2 可作為輔助\n\n\n\n\nScenario 3：結果不一致\n👉 Kraken2 有，但 minimap2 沒有\n可能原因：\n\ndatabase bias\nk-mer overlap（近緣物種）\nreference 不完整\nreads 太短或品質問題\n\n👉 這時 不能只相信 Kraken2\n\n\n\nScenario 4：minimap2 有，但 Kraken2 沒有\n可能原因：\n\ndatabase 沒有該物種\n分類停在高層級（genus / family）\nread 數量太少\n\n👉 這時 minimap2 反而更可信"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#common-pitfalls",
+    "href": "05_workflows/kraken2_vs_minimap2.html#common-pitfalls",
+    "title": "Kraken2 vs minimap2",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\n最常見的錯誤，是把 Kraken2 當作最終答案。\n\n\n\n把 Kraken2 report 當成 definitive identification\n不做 alignment validation\n忽略 database completeness\n不看 read count / coverage\n不使用 negative control"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#best-practice",
+    "href": "05_workflows/kraken2_vs_minimap2.html#best-practice",
+    "title": "Kraken2 vs minimap2",
+    "section": "Best practice",
+    "text": "Best practice\n\n\n\n\n\n\nTip\n\n\n\nKraken2 用來找方向，minimap2 用來確認證據。\n\n\n建議 workflow：\n\nStep 1：Kraken2 → 找 candidate\nStep 2：minimap2 → 驗證 alignment\nStep 3：整合 read count、coverage、control"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#suggested-visualization",
+    "href": "05_workflows/kraken2_vs_minimap2.html#suggested-visualization",
+    "title": "Kraken2 vs minimap2",
+    "section": "Suggested visualization",
+    "text": "Suggested visualization\n可以加的圖（很值得放）：\n\n\n🖼️ 圖 1：Workflow diagram（強烈推薦）\n👉 用 Mermaid（直接放在 qmd）\n\n\n\n\n\nflowchart LR\n    A[FASTQ reads] --&gt; B[Kraken2 classification]\n    B --&gt; C{Candidate detected?}\n    C --&gt;|Yes| D[minimap2 alignment]\n    C --&gt;|No| E[Review QC / database]\n    D --&gt; F[Coverage / validation]\n\n\n\n\n\n\n👉 這張圖會讓整頁「一秒懂」\n\n\n\n🖼️ 圖 2：Concept difference（選用）\n之後可以自己畫或用簡單示意：\n\nKraken2：k-mer match（碎片）\nminimap2：alignment（整段對齊）\n\n👉 搜尋關鍵字：\nk-mer matching diagram\nsequence alignment diagram long read\n\n\n\n🖼️ 圖 3：結果對比（進階）\n之後可以加：\n\nKraken2 report（bar chart）\nminimap2 coverage plot\n\n👉 讓這頁變成教學等級"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#quick-takeaway",
+    "href": "05_workflows/kraken2_vs_minimap2.html#quick-takeaway",
+    "title": "Kraken2 vs minimap2",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\nKraken2 與 minimap2 並不是競爭關係，而是互補工具。\nKraken2 適合快速分類與探索，minimap2 適合精確比對與驗證。\n在 Nanopore workflow 中，最穩定的策略通常是：先用 Kraken2 找方向，再用 minimap2 確認。"
+  },
+  {
+    "objectID": "05_workflows/kraken2_vs_minimap2.html#related-pages",
+    "href": "05_workflows/kraken2_vs_minimap2.html#related-pages",
+    "title": "Kraken2 vs minimap2",
+    "section": "Related pages",
+    "text": "Related pages\n\nKraken2\nminimap2\nFASTQ QC"
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html",
+    "href": "05_workflows/Host_depletion_strategy.html",
+    "title": "Host depletion strategy",
+    "section": "",
+    "text": "Note\n\n\n\nPrivate This page documents internal strategies and considerations for host depletion in sequencing workflows."
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html#overview",
+    "href": "05_workflows/Host_depletion_strategy.html#overview",
+    "title": "Host depletion strategy",
+    "section": "Overview",
+    "text": "Overview\n在多數 biological samples（特別是動物組織）中：\n\nhost DNA 通常佔 &gt;90%\n\n因此：\n\n會嚴重影響 pathogen detection sensitivity\n增加 sequencing cost\n干擾 downstream analysis"
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html#two-major-strategies",
+    "href": "05_workflows/Host_depletion_strategy.html#two-major-strategies",
+    "title": "Host depletion strategy",
+    "section": "Two major strategies",
+    "text": "Two major strategies\n\n1️⃣ Experimental depletion（wet lab）\n方法：\n\nhost DNA depletion kits\nselective lysis\nnuclease treatment\nenrichment protocols\n\n優點：\n\n從源頭降低 host DNA\n提高 pathogen signal\n\n缺點：\n\n可能造成 bias\n可能損失 target DNA\n成本增加\n\n\n\n\n2️⃣ Computational depletion（bioinformatics）\n方法：\n\nKraken2 host database filtering\nminimap2 alignment to host genome\nread removal\n\n優點：\n\n靈活\n可重複分析\n不影響原始樣本\n\n缺點：\n\n無法回收 sequencing capacity\n依賴 reference genome\n可能誤刪 reads"
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html#strategy-comparison",
+    "href": "05_workflows/Host_depletion_strategy.html#strategy-comparison",
+    "title": "Host depletion strategy",
+    "section": "Strategy comparison",
+    "text": "Strategy comparison\n\n\n\nAspect\nExperimental\nComputational\n\n\n\n\nTiming\npre-sequencing\npost-sequencing\n\n\nCost impact\n↑\n→\n\n\nFlexibility\n低\n高\n\n\nBias risk\n有\n較低\n\n\nSensitivity\n↑（若成功）\n中等"
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html#practical-decision-framework",
+    "href": "05_workflows/Host_depletion_strategy.html#practical-decision-framework",
+    "title": "Host depletion strategy",
+    "section": "Practical decision framework",
+    "text": "Practical decision framework\n\n\n\n\n\nflowchart TD\n    A[Sample type] --&gt; B{High host content?}\n    B --&gt;|Yes| C[Consider experimental depletion]\n    B --&gt;|No| D[Direct sequencing]\n\n    C --&gt; E[Sequencing]\n    D --&gt; E\n\n    E --&gt; F[Computational host removal]"
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html#internal-considerationsprivate",
+    "href": "05_workflows/Host_depletion_strategy.html#internal-considerationsprivate",
+    "title": "Host depletion strategy",
+    "section": "Internal considerations（PRIVATE）",
+    "text": "Internal considerations（PRIVATE）\n\nWhen to prioritize experimental depletion\n\nhost DNA &gt;&gt; microbial DNA\n需要高 sensitivity detection\nsequencing budget limited\n\n\n\n\nWhen to rely on computational filtering\n\nexploratory analysis\nreference genome available\n不確定 target\n\n\n\n\nCombined strategy（推薦）\n\nexperimental + computational\n\n\nwet lab 降低背景\nbioinformatics refine results"
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html#risks-and-caveats",
+    "href": "05_workflows/Host_depletion_strategy.html#risks-and-caveats",
+    "title": "Host depletion strategy",
+    "section": "Risks and caveats",
+    "text": "Risks and caveats\n\n過度 depletion → loss of pathogen signal\nreference genome 不完整 → filtering 失效\nconserved regions → 誤判"
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html#key-principle",
+    "href": "05_workflows/Host_depletion_strategy.html#key-principle",
+    "title": "Host depletion strategy",
+    "section": "Key principle",
+    "text": "Key principle\n\n\n\n\n\n\nTip\n\n\n\nHost depletion 是 sensitivity optimization，而不是必要條件。"
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html#internal-notes可自行填",
+    "href": "05_workflows/Host_depletion_strategy.html#internal-notes可自行填",
+    "title": "Host depletion strategy",
+    "section": "Internal notes（可自行填）",
+    "text": "Internal notes（可自行填）\n\n使用的 kit：\nbead ratio / protocol：\nhost genome version：\nfiltering criteria："
+  },
+  {
+    "objectID": "05_workflows/Host_depletion_strategy.html#related-pages",
+    "href": "05_workflows/Host_depletion_strategy.html#related-pages",
+    "title": "Host depletion strategy",
+    "section": "Related pages",
+    "text": "Related pages\n\nNanopore workflow\nInterpretation framework"
+  },
+  {
+    "objectID": "04_taxonomy/kraken2.html",
+    "href": "04_taxonomy/kraken2.html",
+    "title": "Kraken2",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page explains what Kraken2 does, when it is useful in Nanopore analysis, and why its results should be interpreted as rapid taxonomic classification rather than final confirmation."
+  },
+  {
+    "objectID": "04_taxonomy/kraken2.html#definition",
+    "href": "04_taxonomy/kraken2.html#definition",
+    "title": "Kraken2",
+    "section": "Definition",
+    "text": "Definition\nKraken2 是一個常用的 taxonomy classification tool，主要利用 k-mer matching 的方式，快速判斷一條 read 最可能屬於哪個分類群。\n在 Nanopore workflow 中，它常被用來回答這類問題：\n\n這個樣本裡可能有哪些生物？\n有沒有某些可疑病原的 reads？\n不同樣本之間的分類組成有什麼差異？\n\nKraken2 的強項是 快、可大規模處理、適合 broad screening，但它本質上不是傳統 alignment tool，也不是最終確認工具。"
+  },
+  {
+    "objectID": "04_taxonomy/kraken2.html#why-it-matters",
+    "href": "04_taxonomy/kraken2.html#why-it-matters",
+    "title": "Kraken2",
+    "section": "Why it matters",
+    "text": "Why it matters\n在 Nanopore 分析中，Kraken2 很適合當作第一層的快速篩檢工具，特別是在還不知道樣本裡可能有什麼時。\n常見用途包括：\n\nmetagenomic screening\npathogen discovery 的初步探索\nenvironmental sample 的分類概覽\n比較不同樣本的 taxonomic composition\n快速評估是否值得再進一步做 validation\n\n如果問題是：\n\n樣本中可能有什麼？\n\n那 Kraken2 往往比直接做 reference alignment 更有效率。"
+  },
+  {
+    "objectID": "04_taxonomy/kraken2.html#how-to-interpret",
+    "href": "04_taxonomy/kraken2.html#how-to-interpret",
+    "title": "Kraken2",
+    "section": "How to interpret",
+    "text": "How to interpret\n這一段的重點是：Kraken2 的結果很有用，但不能用得太快、太滿。\n\nIn practice\n在 ONT workflow 中，Kraken2 常見的實務用途包括：\n\n初步掃描樣本中可能存在的微生物\n比較不同樣本的分類組成差異\n協助挑出需要後續驗證的 candidate targets\n在 host depletion 前後，觀察非宿主 reads 的變化\n\n它回答的問題比較像是：\n\n這條 read 的 k-mer 特徵最像哪一類生物？\n這批 reads 整體上比較偏向哪些 taxonomic groups？\n\n因此，Kraken2 很適合當作 先找方向 的工具。\n\n\nWhat to compare with\nKraken2 的結果不建議單獨解讀，通常要搭配以下資訊一起看：\n\nclassified / unclassified reads 比例\nreport 中不同 taxonomic level 的分布\nnegative control 的結果\n目標 reads 的數量是否足夠\n是否集中於特定 species，還是分散到多個近緣分類群\n後續 minimap2 或其他 alignment-based validation\nreference / database 的完整性\n\n如果某個目標只出現極少數 reads，或同時有許多近緣物種一起冒出來，就要特別小心，不宜直接下強結論。"
+  },
+  {
+    "objectID": "04_taxonomy/kraken2.html#common-pitfalls",
+    "href": "04_taxonomy/kraken2.html#common-pitfalls",
+    "title": "Kraken2",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\nKraken2 很適合做快速分類，但它不等於最終證據。\n在 Nanopore pathogen detection 中，通常更適合把它視為 screening step，而不是 final confirmation。\n\n\n\nreport 裡出現 species 名稱，不代表一定能直接當作最終鑑定\n極少量的 reads 可能來自背景污染、index hopping、database bias 或 common k-mer\ndatabase 不完整時，可能會判不到、判偏，或只停留在較高分類層級\n近緣物種之間可能共享大量 k-mers，造成分類不夠特異\n不同樣本間若 read depth 差很多，直接比較 raw counts 可能會誤導\n若不搭配 control 與後續 validation，容易過度解讀"
+  },
+  {
+    "objectID": "04_taxonomy/kraken2.html#tools-commands",
+    "href": "04_taxonomy/kraken2.html#tools-commands",
+    "title": "Kraken2",
+    "section": "Tools / commands",
+    "text": "Tools / commands\nKraken2 常和 report parsing、read abundance summary、後續 alignment tool 一起使用。\n\nCommon tools\n\nKraken2\nBracken\nKrona\nminimap2\ndownstream summary / visualization scripts\n\n\n\nExample command\nkraken2 \\\n  --db /path/to/db \\\n  --report sample.report.txt \\\n  --output sample.kraken.txt \\\n  reads.fastq"
+  },
+  {
+    "objectID": "04_taxonomy/kraken2.html#quick-takeaway",
+    "href": "04_taxonomy/kraken2.html#quick-takeaway",
+    "title": "Kraken2",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\nKraken2 是非常適合 Nanopore workflow 的快速 taxonomy classifier，特別適合做 broad screening、初步探索與 candidate detection。\n但它比較像是在回答「這條 read 比較像哪一類生物」，而不是「這一定就是某個物種」。\n因此最好的做法通常是：先用 Kraken2 找方向，再用 minimap2 或其他方法做後續驗證。"
+  },
+  {
+    "objectID": "04_taxonomy/kraken2.html#related-pages",
+    "href": "04_taxonomy/kraken2.html#related-pages",
+    "title": "Kraken2",
+    "section": "Related pages",
+    "text": "Related pages\n\nminimap2\nFASTQ QC\nQ score"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html",
+    "href": "02_sequencing_qc/sequencing_depth.html",
+    "title": "Sequencing depth",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page explains what sequencing depth means, how to estimate it, and how to interpret it in Nanopore workflows."
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#definition",
+    "href": "02_sequencing_qc/sequencing_depth.html#definition",
+    "title": "Sequencing depth",
+    "section": "Definition",
+    "text": "Definition\nSequencing depth 通常指的是某個 reference sequence 被 reads 覆蓋的程度。\n最常見的概念是 coverage，也就是：\n\n平均每個位置被讀到幾次\n\n在最簡化的情況下，可用下列方式估算：\nCoverage = Total bases sequenced / Reference size\n例如：\n\ntotal bases = 1 Gb\nreference genome = 5 Mb\n\n則理論平均 coverage 約為：\n1,000,000,000 / 5,000,000 = 200×\n但在實務上，sequencing depth 並不只是單一數值，還要考慮 coverage 是否均勻、是否集中在少數區域，以及是否真的支持要分析目的。"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#why-it-matters",
+    "href": "02_sequencing_qc/sequencing_depth.html#why-it-matters",
+    "title": "Sequencing depth",
+    "section": "Why it matters",
+    "text": "Why it matters\nSequencing depth 是判斷資料量是否足夠的重要指標之一。\n它會影響：\n\npathogen detection sensitivity\nalignment confidence\nassembly completeness\nvariant calling reliability\n結果判讀的穩定性\n\n如果 depth 太低，可能出現：\n\n目標 reads 太少\ncoverage 斷裂\n結果不穩定\n重複實驗時不一致\n\n但 depth 很高，也不代表一定能直接得到高品質結論。\n因為 depth 反映的是資料量，不是自動保證資料品質或特異性。"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#basic-concept",
+    "href": "02_sequencing_qc/sequencing_depth.html#basic-concept",
+    "title": "Sequencing depth",
+    "section": "Basic concept",
+    "text": "Basic concept\nSequencing depth 最常見有兩種理解方式：\n\n1. Average depth\n指整體平均覆蓋程度。\n這是最常見、也最容易報告的數值，例如：\n\n10×\n30×\n100×\n\n它適合做整體概念判斷，但無法告訴我們 coverage 是否均勻。\n\n\n2. Coverage breadth\n指 reference 中有多少比例真的被 reads 覆蓋到。\n例如：\n\n10× average depth 但只覆蓋 20% genome\n10× average depth 且覆蓋 95% genome\n\n這兩種情況的解讀就完全不同。\n因此，在 Nanopore 分析中，average depth 與 coverage breadth 最好一起看。"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#how-to-interpret",
+    "href": "02_sequencing_qc/sequencing_depth.html#how-to-interpret",
+    "title": "Sequencing depth",
+    "section": "How to interpret",
+    "text": "How to interpret\n\nIn practice\n在 Nanopore workflow 中，sequencing depth 的解讀要依分析目的而定。\n\nFor pathogen detection\n如果目的是：\n\n樣本中是否存在某個已知目標\n\n那重點通常不是追求很高 depth，而是：\n\n是否有足夠 supporting reads\n是否有合理 alignment\n是否有一定 coverage support\n是否和 control / biological context 一致\n\n這種情況下，低到中等 depth 也可能有意義。\n\n\nFor genome assembly\n如果目的是 assembly，depth 通常更重要。\n因為需要：\n\n足夠覆蓋整個 genome\n跨越複雜區域\n降低 gaps\n提高 consensus reliability\n\n\n\nFor variant calling\n如果目的是 variant-level analysis，除了 depth 之外，還要特別注意：\n\nbase quality\nalignment quality\nlocal coverage consistency\nstrand bias / error pattern\n\n\n\n\nWhat to compare with\nSequencing depth 不應單獨解讀，建議一起比較：\n\nread count\ntotal bases\nQ score\nread length / N50\nmapping rate\ncoverage breadth\ntarget-specific coverage pattern\n\n例如：\n\n高 depth 但只集中在少數區域 → 證據有限\n中等 depth 且 coverage 分布合理 → 可能比單純高 depth 更有意義\ntotal bases 很高，但多數為 host DNA → target depth 仍可能不足"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#typical-ranges",
+    "href": "02_sequencing_qc/sequencing_depth.html#typical-ranges",
+    "title": "Sequencing depth",
+    "section": "Typical ranges",
+    "text": "Typical ranges\n不同分析目的對 depth 的需求不同，下表只是通用概念，不是固定標準。\n\n\n\nApplication\nGeneral depth concept\n\n\n\n\nPresence / screening\n低到中等 depth 也可能有用\n\n\nMetagenomics\nhighly variable\n\n\nReference-guided validation\n通常希望有可解讀 coverage\n\n\nAssembly\n通常需要較高 depth\n\n\nVariant calling\n通常需要較高且較穩定的局部 depth\n\n\n\n重點不是套用某個固定數字，而是：\n\n資料深度是否足以支撐想回答的問題"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#nanopore-specific-considerations",
+    "href": "02_sequencing_qc/sequencing_depth.html#nanopore-specific-considerations",
+    "title": "Sequencing depth",
+    "section": "Nanopore-specific considerations",
+    "text": "Nanopore-specific considerations\nNanopore 的 sequencing depth 解讀和 short-read 不太一樣，因為它有幾個特性：\n\nread length 較長\ncoverage 可能不均勻\nper-read error rate 較高\nhost background 常影響 target depth\n\n因此，在 Nanopore workflow 中，depth interpretation 通常要同時考慮：\n\nquality\nalignment\nread distribution\nbiological context\n\n也就是說：\n\n同樣是 10×，在不同 Nanopore dataset 裡，意義可能差很多"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#common-pitfalls",
+    "href": "02_sequencing_qc/sequencing_depth.html#common-pitfalls",
+    "title": "Sequencing depth",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\nSequencing depth 很常被誤當成「越高越好」的單一指標。\n\n\n\n把平均 depth 當成完整證據\n忽略 coverage breadth\n不看 target-specific depth，只看 total bases\n把高 depth 直接等同於高可信度\n不同分析目的使用同一套 depth 標準\n忽略 host DNA 對有效 depth 的影響"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#common-tools",
+    "href": "02_sequencing_qc/sequencing_depth.html#common-tools",
+    "title": "Sequencing depth",
+    "section": "Common tools",
+    "text": "Common tools\nSequencing depth 通常需要 reference-based analysis 才能真正計算或視覺化。\n常見工具包括：\n\nsamtools depth\nmosdepth\nbedtools genomecov\nalignment summary tools\nIGV（視覺化 coverage 時很常用）"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#example-commands",
+    "href": "02_sequencing_qc/sequencing_depth.html#example-commands",
+    "title": "Sequencing depth",
+    "section": "Example commands",
+    "text": "Example commands\n\nUsing samtools depth\nsamtools depth aligned_reads.bam &gt; depth.txt\n\n\nCalculate average depth from depth file\nawk '{sum+=$3} END {print sum/NR}' depth.txt\n\n\nUsing mosdepth\nmosdepth sample aligned_reads.bam"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#practical-mindset",
+    "href": "02_sequencing_qc/sequencing_depth.html#practical-mindset",
+    "title": "Sequencing depth",
+    "section": "Practical mindset",
+    "text": "Practical mindset\nSequencing depth 可以分成三層來看：\n\nLayer 1：有多少資料？\n\ntotal bases\nmapped reads\n\n\n\nLayer 2：有多少 target coverage？\n\naverage depth\nbreadth of coverage\n\n\n\nLayer 3：這些 coverage 有沒有意義？\n\n是否均勻\n是否集中在合理區域\n是否與 biological context 一致\n\n真正重要的不是單一 coverage 數字，而是：\n\n這些 reads 是否足以支持對目標的解讀"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#quick-takeaway",
+    "href": "02_sequencing_qc/sequencing_depth.html#quick-takeaway",
+    "title": "Sequencing depth",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\nSequencing depth 是資料量與覆蓋程度的核心指標，但不是品質保證。\n在 Nanopore workflow 中，最好把 depth 和 coverage breadth、Q score、read length、alignment quality 與 target context 一起解讀。"
+  },
+  {
+    "objectID": "02_sequencing_qc/sequencing_depth.html#related-pages",
+    "href": "02_sequencing_qc/sequencing_depth.html#related-pages",
+    "title": "Sequencing depth",
+    "section": "Related pages",
+    "text": "Related pages\n\nFASTQ QC\nNanoPlot\nQ score\nN50 / read length\nminimap2"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html",
+    "href": "02_sequencing_qc/fastq_qc.html",
+    "title": "FASTQ QC",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page explains how to perform and interpret FASTQ-level quality control in Nanopore sequencing before downstream analysis."
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#definition",
+    "href": "02_sequencing_qc/fastq_qc.html#definition",
+    "title": "FASTQ QC",
+    "section": "Definition",
+    "text": "Definition\nFASTQ QC 指的是在 downstream analysis 之前，先對原始 reads 的基本品質與結構做初步檢查。\n對 Nanopore 資料來說，FASTQ QC 通常回答以下問題：\n\n這批 reads 的整體品質如何？\nread 數量與總 bases 是否足夠？\nread length 分布是否合理？\n是否存在明顯異常，導致後續分析結果不可靠？\n\nFASTQ QC 不是最終判讀，但它是進入後續分析前最重要的第一關。"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#why-it-matters",
+    "href": "02_sequencing_qc/fastq_qc.html#why-it-matters",
+    "title": "FASTQ QC",
+    "section": "Why it matters",
+    "text": "Why it matters\n在 Nanopore sequencing workflow 中，如果 FASTQ QC 沒先看清楚，就很容易出現以下問題：\n\ndownstream 結果很差，卻不知道是 sample 問題還是分析問題\n讀到少量目標訊號時，無法判斷是低 abundance 還是資料本身品質不足\n分析花很多時間，但最後發現 run 本身就不適合繼續解讀\n\nFASTQ QC 的價值不在於追求「漂亮數字」，而在於判斷：\n\n這批資料是否足以支撐接下來想做的分析"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#what-to-check",
+    "href": "02_sequencing_qc/fastq_qc.html#what-to-check",
+    "title": "FASTQ QC",
+    "section": "What to check",
+    "text": "What to check\nFASTQ QC 最常看的幾個核心面向如下。\n\n1. Read count\nread count 是最基本的資料量指標之一。\n它回答的是：\n\n這批資料總共有多少條 reads？\n不同樣本之間 read 數量是否差太多？\n是否出現明顯低產出樣本？\n\n實務上，read count 太低時，常會限制：\n\n病原偵測靈敏度\ntaxonomic classification 穩定性\nalignment coverage\n\n但 read count 多，不代表資料一定好，仍需搭配其他指標一起看。\n\n\n2. Total bases\ntotal bases 代表總共產生了多少鹼基數。\n這個值比單純 read count 更能反映實際資料量，因為：\n\n有些 run reads 多，但都很短\n有些 run reads 較少，但總 bases 很高\n\n在 Nanopore 中，total bases 通常和後續的資料利用率很有關係，特別是：\n\nsequencing depth\nassembly 潛力\ntarget detection sensitivity\n\n\n\n3. Read length distribution\nNanopore 的重要特性之一是 long reads，因此 read length 分布很值得看。\n可以從這裡判斷：\n\n這批 DNA 是否過度 fragmented\nlibrary preparation 是否保留了足夠長的片段\n這批資料偏向短 reads 還是長 reads\n\n這一項通常要搭配：\n\nN50\nmean read length\nmedian read length\nlength histogram\n\n一起看會比較有意義。\n\n\n4. Quality score distribution\nquality score（Q score）反映的是 basecalling 品質。\nFASTQ QC 中，Q score 常被拿來做快速品質檢查，但不應單獨使用。\n在實務上，Q score 的重點不是追求單一高值，而是看：\n\n整體分布是否合理\n是否有大量極低品質 reads\n不同樣本之間是否差異過大\n\n\n\n5. Abnormal patterns\nFASTQ QC 也要注意是否有一些「一眼就不對勁」的異常現象，例如：\n\nread 數量異常低\nread 長度過短\n品質分布明顯偏低\n樣本之間落差過大\n整批資料與預期完全不符\n\n這些現象未必能直接告訴說明原因，但會提醒：\n\n這批資料不能直接進入後續解讀，而是需要先釐清問題來源"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#how-to-interpret",
+    "href": "02_sequencing_qc/fastq_qc.html#how-to-interpret",
+    "title": "FASTQ QC",
+    "section": "How to interpret",
+    "text": "How to interpret\n這一段的重點不是單看某一個值，而是整體判斷資料是否「適合的分析目的」。\n\nIn practice\n在 Nanopore workflow 中，FASTQ QC 的實務解讀通常是這樣：\n\n若目標是 初步 pathogen screening\n重點會放在：是否有足夠 usable reads、是否有合理 total bases、品質是否不至於太差\n若目標是 reference alignment / validation\n重點會放在：Q score、read length、後續 mapping potential\n若目標是 assembly / structural analysis\n重點會放在：read length distribution、N50、total bases\n\n換句話說：\n\n同一批 FASTQ，在不同分析目的下，QC 判斷標準不一定相同\n\n\n\nWhat to compare with\nFASTQ QC 最好至少一起比較這些資訊：\n\nread count\ntotal bases\nQ score\nread length / N50\nNanoPlot 視覺化結果\nsequencing depth（若已有 reference）\nnegative control 或其他樣本表現\n\n如果只看其中一個值，很容易誤判。\n例如：\n\nread count 很高，但 reads 都很短\nQ score 還可以，但 total bases 太少\nN50 很漂亮，但 usable reads 不夠\ntotal bases 很多，但大部分都是 host background"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#common-pitfalls",
+    "href": "02_sequencing_qc/fastq_qc.html#common-pitfalls",
+    "title": "FASTQ QC",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\nFASTQ QC 最常見的錯誤，不是數值看錯，而是解讀方式太單一。\n\n\n\n只看 Q score，不看 read length 與資料量\n只看 read count，不看 total bases\n只看 summary statistics，不看 distribution\n把「數值不漂亮」直接當成資料不能用\n把「數值漂亮」直接當成分析一定可靠\n不依分析目的調整 QC 觀點"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#common-tools",
+    "href": "02_sequencing_qc/fastq_qc.html#common-tools",
+    "title": "FASTQ QC",
+    "section": "Common tools",
+    "text": "Common tools\nFASTQ QC 常用工具包括：\n\nNanoPlot\nNanoStat\nseqkit\nbasecalling summary outputs\n自訂統計腳本\n\n不同工具用途稍有不同：\n\nNanoPlot：視覺化最完整\nNanoStat：快速 summary\nseqkit stats：快速查看序列基本統計"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#example-commands",
+    "href": "02_sequencing_qc/fastq_qc.html#example-commands",
+    "title": "FASTQ QC",
+    "section": "Example commands",
+    "text": "Example commands\n\nNanoStat\nNanoStat --fastq reads.fastq\n\n\nNanoPlot\nNanoPlot --fastq reads.fastq -o nanoplot_output\n\n\nseqkit\nseqkit stats reads.fastq"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#practical-qc-mindset",
+    "href": "02_sequencing_qc/fastq_qc.html#practical-qc-mindset",
+    "title": "FASTQ QC",
+    "section": "Practical QC mindset",
+    "text": "Practical QC mindset\nFASTQ QC 可以把它想成三個層次：\n\nLayer 1：資料有多少？\n\nread count\ntotal bases\n\n\n\nLayer 2：資料長什麼樣？\n\nread length\nN50\ndistribution\n\n\n\nLayer 3：資料能不能用？\n\nQ score\nabnormal patterns\ndownstream suitability\n\n真正重要的，不是某一個數字，而是：\n\n這批 reads 是否足以支撐接下來要分析問題"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#quick-takeaway",
+    "href": "02_sequencing_qc/fastq_qc.html#quick-takeaway",
+    "title": "FASTQ QC",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\nFASTQ QC 是 Nanopore downstream analysis 前的第一層品質檢查。\n它不只是看 reads 多不多、Q 值高不高，而是整合 read count、total bases、read length、quality 與分析目的，判斷資料是否足夠可靠。"
+  },
+  {
+    "objectID": "02_sequencing_qc/fastq_qc.html#related-pages",
+    "href": "02_sequencing_qc/fastq_qc.html#related-pages",
+    "title": "FASTQ QC",
+    "section": "Related pages",
+    "text": "Related pages\n\nQ score\nN50 / read length\nSequencing depth\nNanoPlot"
+  },
+  {
+    "objectID": "01_basic_concepts/N50.html",
+    "href": "01_basic_concepts/N50.html",
+    "title": "N50 / read length",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page explains what N50 and read length mean, how to interpret them in practice, and why they should not be used as a single performance indicator."
+  },
+  {
+    "objectID": "01_basic_concepts/N50.html#definition",
+    "href": "01_basic_concepts/N50.html#definition",
+    "title": "N50 / read length",
+    "section": "Definition",
+    "text": "Definition\nRead length 指的是每一條 sequencing read 的長度（bp）。\nN50 是一個用來描述 read length 分布的統計指標，定義為：\n\n將所有 reads 依長度排序後，累積長度達到總量 50% 時所對應的 read 長度。\n\n簡單來說：\n\nN50 越大，代表 dataset 中有較多較長的 reads\nN50 反映的是「長度分布」，不是單一 read 的品質"
+  },
+  {
+    "objectID": "01_basic_concepts/N50.html#why-it-matters",
+    "href": "01_basic_concepts/N50.html#why-it-matters",
+    "title": "N50 / read length",
+    "section": "Why it matters",
+    "text": "Why it matters\n在 Nanopore sequencing 中，read length 是一個非常重要的特性，因為 long-read 的價值就在於：\n\n可以跨越重複區域\n可以提供較完整的結構資訊\n在某些分析（assembly、structural variation）中特別重要\n\nN50 常被用來快速描述一個 dataset 的「長度表現」，例如：\n\nlibrary preparation 是否成功\nDNA fragmentation 是否過度\n不同 run 之間的表現比較\n\n但在不同應用情境中，read length 的重要性也不同：\n\npathogen detection：通常不需要極長 reads\ngenome assembly：通常會非常在意 read length\nmetagenomics：需要平衡 read length 與 read count"
+  },
+  {
+    "objectID": "01_basic_concepts/N50.html#how-to-interpret",
+    "href": "01_basic_concepts/N50.html#how-to-interpret",
+    "title": "N50 / read length",
+    "section": "How to interpret",
+    "text": "How to interpret\n\nIn practice\n在 ONT workflow 中，read length 與 N50 的解讀應該放在「分析目的」的脈絡下。\n常見實務觀察：\n\nN50 高 → 通常代表 DNA 品質較好、fragmentation 較少\nN50 低 → 可能代表 DNA degraded、或 library prep 過程中產生過多短片段\n\n但要注意：\n\nN50 是 distribution summary，不代表所有 reads 都很長\n少數極長 reads 可能會拉高平均值，但不一定改變整體結構\n\n\n\nWhat to compare with\nN50 不應單獨解讀，建議搭配以下資訊：\n\nread count（總 reads 數）\ntotal bases\nread length distribution（直方圖）\nmedian read length\nQ score（品質）\nmapping rate（是否真的有用）\n\n例如：\n\n高 N50 + 低 read count → 可能長但不夠多\n低 N50 + 高 read count → 可能短但量足夠\nN50 改善但 target detection 沒變 → 可能對該分析影響不大"
+  },
+  {
+    "objectID": "01_basic_concepts/N50.html#common-pitfalls",
+    "href": "01_basic_concepts/N50.html#common-pitfalls",
+    "title": "N50 / read length",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\nN50 是一個很容易被誤用或過度解讀的指標。\n\n\n\n把 N50 當作「越高越好」的單一指標\n忽略 read length 分布，只看單一 summary statistic\n不同分析目的使用同一個 N50 標準\n把 N50 當成品質指標（它不是）\n在 read count 很低的情況下解讀 N50（統計不穩定）"
+  },
+  {
+    "objectID": "01_basic_concepts/N50.html#tools-commands",
+    "href": "01_basic_concepts/N50.html#tools-commands",
+    "title": "N50 / read length",
+    "section": "Tools / commands",
+    "text": "Tools / commands\nread length 與 N50 通常透過 QC 工具查看，而不是單獨計算。\n\nCommon tools\n\nNanoPlot\npycoQC\nseqkit stats\ncustom scripts（length distribution）\n\n\n\nExample command\nNanoPlot --fastq reads.fastq -o nanoplot_length\n或使用 seqkit：\nseqkit stats reads.fastq"
+  },
+  {
+    "objectID": "01_basic_concepts/N50.html#quick-takeaway",
+    "href": "01_basic_concepts/N50.html#quick-takeaway",
+    "title": "N50 / read length",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\nN50 是描述 read length 分布的統計指標，不是品質指標。\n在 Nanopore 分析中，read length 的重要性取決於分析目的；\n比起追求單一高 N50，更重要的是同時考慮 read count、分布、品質與實際分析結果。"
+  },
+  {
+    "objectID": "01_basic_concepts/N50.html#related-pages",
+    "href": "01_basic_concepts/N50.html#related-pages",
+    "title": "N50 / read length",
+    "section": "Related pages",
+    "text": "Related pages\n\nQ score\nFASTQ QC\nminimap2"
+  },
+  {
+    "objectID": "01_basic_concepts/Q_score.html",
+    "href": "01_basic_concepts/Q_score.html",
+    "title": "Q score",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page explains what Q score means, how to interpret it in practice, and why it should not be used alone."
+  },
+  {
+    "objectID": "01_basic_concepts/Q_score.html#definition",
+    "href": "01_basic_concepts/Q_score.html#definition",
+    "title": "Q score",
+    "section": "Definition",
+    "text": "Definition\nQ score 是用來表示定序錯誤率的品質分數，通常以對數形式表示。\n在概念上，Q 值越高，代表單一鹼基被判錯的機率越低。\n常見公式如下：\nQ = -10 × log10(Perror)\n其中 Perror 代表單一鹼基的錯誤率。\nQ score 主要用來快速描述 read 的 basecalling 品質，但它不等於整體分析結果一定正確，也不能單獨代表資料是否可用。"
+  },
+  {
+    "objectID": "01_basic_concepts/Q_score.html#why-it-matters",
+    "href": "01_basic_concepts/Q_score.html#why-it-matters",
+    "title": "Q score",
+    "section": "Why it matters",
+    "text": "Why it matters\nQ score 是 Nanopore workflow 中最常見、也最容易被拿來當第一眼判斷的品質指標之一。\n\n它可以幫助快速了解 reads 的整體品質\n它常影響 filtering 與後續分析策略\n它有助於比較不同 run、不同樣本或不同 library preparation 的表現\n\n但在實務上，Q score 的意義必須放在分析目標裡解讀。\n例如：\n\n若目標是 pathogen screening，較低但仍可判讀的 reads 可能依然有價值\n若目標是高品質 assembly 或 variant analysis，通常會更在意 Q score 與 error profile"
+  },
+  {
+    "objectID": "01_basic_concepts/Q_score.html#how-to-interpret",
+    "href": "01_basic_concepts/Q_score.html#how-to-interpret",
+    "title": "Q score",
+    "section": "How to interpret",
+    "text": "How to interpret\n這一段的重點不是公式本身，而是：Q score 在實務上該怎麼看。\n\nIn practice\nQ score 越高，通常代表 read 的 basecalling 品質越好，但不代表所有分析結果都一定更可靠。\n在 Nanopore 資料中，Q score 常見的實務解讀方式如下：\n\nQ10 代表約 90% accuracy\nQ20 代表約 99% accuracy\nQ30 代表約 99.9% accuracy\n\n但在 ONT 資料分析中，不能只看數值高低，而要看它是否足以支撐分析目的。\n例如：\n\n做初步病原偵測時，不一定需要非常高的 Q score\n若 target 能穩定檢出、結果與背景合理，即使 reads 品質不是最高，資料仍可能可用\n若要做精細比對、de novo assembly 或 variant-level interpretation，通常會更在意 read quality\n\n\n\nWhat to compare with\nQ score 不應單獨解讀，建議一起搭配以下資訊判讀：\n\nread count\ntotal bases\nread length / N50\nmapping rate\ntarget detection stability\nbackground contamination\nnegative control 表現\n\n換句話說，Q score 比較像是 quality snapshot，不是單一決策依據。"
+  },
+  {
+    "objectID": "01_basic_concepts/Q_score.html#common-pitfalls",
+    "href": "01_basic_concepts/Q_score.html#common-pitfalls",
+    "title": "Q score",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\nQ score 很常被過度解讀。\n在 Nanopore workflow 中，它很重要，但不是唯一品質標準。\n\n\n\nQ 值高，不代表 taxonomy classification 一定正確\nQ 值低，不代表資料一定不能用\n不同分析目的，對 Q score 的要求不同\n單看平均 Q score，可能忽略 reads 分布差異\n若 reference、database 或 downstream method 有限制，再高的 Q score 也無法自動保證正確結果"
+  },
+  {
+    "objectID": "01_basic_concepts/Q_score.html#tools-commands",
+    "href": "01_basic_concepts/Q_score.html#tools-commands",
+    "title": "Q score",
+    "section": "Tools / commands",
+    "text": "Tools / commands\nQ score 相關資訊通常不會單獨存在，而是和 read QC 工具一起查看。\n\nCommon tools\n\nNanoPlot\npycoQC\nbasecalling summary outputs\nFASTQ quality summaries\n\n\n\nExample command\nNanoPlot --fastq reads.fastq -o nanoplot_qc"
+  },
+  {
+    "objectID": "01_basic_concepts/Q_score.html#quick-takeaway",
+    "href": "01_basic_concepts/Q_score.html#quick-takeaway",
+    "title": "Q score",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\nQ score 是 read quality 的快速指標，適合用來做初步品質判斷。\n但在 Nanopore 分析中，最好把它和 read length、read count、mapping rate、背景污染與實際檢出結果一起看。\n高 Q score 不等於結果一定正確；低 Q score 也不代表資料一定沒用。"
+  },
+  {
+    "objectID": "01_basic_concepts/Q_score.html#related-pages",
+    "href": "01_basic_concepts/Q_score.html#related-pages",
+    "title": "Q score",
+    "section": "Related pages",
+    "text": "Related pages\n\nN50 / read length\nFASTQ QC"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html",
+    "href": "02_sequencing_qc/nanoplot.html",
+    "title": "NanoPlot",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page explains what NanoPlot shows, how to generate its reports, and how to interpret common QC patterns in Nanopore sequencing data."
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#definition",
+    "href": "02_sequencing_qc/nanoplot.html#definition",
+    "title": "NanoPlot",
+    "section": "Definition",
+    "text": "Definition\nNanoPlot 是 Nanopore 常用的 QC 視覺化工具，用來整理與呈現 reads 的基本特徵，例如：\n\nread length\nquality score\ntotal yield\nread count\nlength vs quality relationship\nyield over time\n\n它的價值不只是「把圖畫出來」，而是幫助快速判斷：\n\n這批資料的整體表現如何，以及是否有明顯異常需要注意。"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#why-it-matters",
+    "href": "02_sequencing_qc/nanoplot.html#why-it-matters",
+    "title": "NanoPlot",
+    "section": "Why it matters",
+    "text": "Why it matters\n在 Nanopore workflow 中，單看 summary statistics 往往不夠。\n例如：\n\n平均 read length 不錯，但其實大多數 reads 很短\nQ score 看似正常，但有一群極低品質 reads\ntotal yield 還可以，但 run 很早就衰退\n\n這些情況若只看表格，常常不容易發現；\n但用 NanoPlot 的圖形化結果，通常會一眼看出來。\n因此，NanoPlot 特別適合做：\n\nFASTQ QC 的視覺化補充\n不同 run 或樣本之間的快速比較\n問題排查（DNA 品質、library prep、flow cell 表現）"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#installation",
+    "href": "02_sequencing_qc/nanoplot.html#installation",
+    "title": "NanoPlot",
+    "section": "Installation",
+    "text": "Installation\n\npip\npip install NanoPlot\n\n\nconda\nconda install -c bioconda nanoplot"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#basic-usage",
+    "href": "02_sequencing_qc/nanoplot.html#basic-usage",
+    "title": "NanoPlot",
+    "section": "Basic usage",
+    "text": "Basic usage\n\nFASTQ input\nNanoPlot --fastq reads.fastq -o nanoplot_output\n\n\ngzipped FASTQ input\nNanoPlot --fastq reads.fastq.gz -o nanoplot_output\n\n\nBAM input\nNanoPlot --bam alignment.bam -o nanoplot_output\n\n\nMultiple files\nNanoPlot --fastq sample1.fastq sample2.fastq -o nanoplot_output"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#typical-output",
+    "href": "02_sequencing_qc/nanoplot.html#typical-output",
+    "title": "NanoPlot",
+    "section": "Typical output",
+    "text": "Typical output\nNanoPlot 通常會產生：\n\nHTML report\nsummary statistics\nPNG / PDF figures\n\n這些輸出很適合用來做：\n\nQC 紀錄\nrun review\n報告附圖\n教學示例"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#what-to-interpret",
+    "href": "02_sequencing_qc/nanoplot.html#what-to-interpret",
+    "title": "NanoPlot",
+    "section": "What to interpret",
+    "text": "What to interpret\nNanoPlot 最有價值的地方，在於它能把多個 QC 指標視覺化。\n下面是最常見、也最值得看的幾類圖。"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#read-length-distribution",
+    "href": "02_sequencing_qc/nanoplot.html#read-length-distribution",
+    "title": "NanoPlot",
+    "section": "1. Read length distribution",
+    "text": "1. Read length distribution\n這類圖通常是 histogram 或 density plot，用來看整批 reads 的長度分布。\n\nWhat it shows\n\nreads 是偏短還是偏長\n分布是否集中\n是否存在長尾\n是否有異常的大量短片段\n\n\n\nHow to interpret\n常見情況包括：\n\n長尾分布明顯\n這通常是 Nanopore 資料常見的正常現象，代表有一部分 reads 很長。\n整體偏短\n可能代表：\n\nDNA 本身已 degraded\nextraction 過程造成 fragmentation\nlibrary prep 保留長片段效果不佳\n\n雙峰或多峰分布\n可能代表：\n\n不同片段族群混在一起\n某些步驟造成特定長度偏多\n樣本來源較複雜\n\n\n\n\nPractical note\n這張圖應與：\n\nN50\nmean read length\nmedian read length\n\n一起解讀，而不是單看圖形印象。"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#quality-score-distribution",
+    "href": "02_sequencing_qc/nanoplot.html#quality-score-distribution",
+    "title": "NanoPlot",
+    "section": "2. Quality score distribution",
+    "text": "2. Quality score distribution\n這類圖用來看 reads 的 Q score 分布。\n\nWhat it shows\n\n整體品質分布是否集中\n是否有大量低品質 reads\n不同 run / 樣本之間是否有明顯差異\n\n\n\nHow to interpret\n常見情況包括：\n\n主要集中在中等 Q score 範圍\n這通常是可接受的常見情形。\n整體偏低\n可能與以下因素有關：\n\nDNA 品質不佳\nlibrary prep 問題\nflow cell 表現較差\nbasecalling 條件不同\n\n有明顯低品質尾端\n代表一部分 reads 品質很低，後續分析時可能需特別留意 filtering。\n\n\n\nPractical note\nQ score 不應單獨解讀。\n即使 Q score 普通，只要：\n\nread 數量足夠\ntarget 可穩定檢出\nalignment 表現合理\n\n資料仍可能有分析價值。"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#yield-over-time",
+    "href": "02_sequencing_qc/nanoplot.html#yield-over-time",
+    "title": "NanoPlot",
+    "section": "3. Yield over time",
+    "text": "3. Yield over time\n這類圖顯示 run 過程中資料產出的累積情況或時間變化。\n\nWhat it shows\n\nsequencing 是否穩定產出\nflow cell 是否很早就衰退\n產出是否在前段快速完成\n\n\n\nHow to interpret\n常見情況包括：\n\n穩定上升後逐漸趨緩\n通常屬於合理現象。\n很早就 plateau\n可能代表：\n\nflow cell 狀態不佳\nloading 效率問題\nlibrary 濃度或品質不足\n\n整體 yield 很低\n需考慮：\n\nsample input 不足\nlibrary prep 問題\npore 活性問題\n\n\n\n\nPractical note\n這張圖很適合拿來 review run quality，尤其是比較不同 run 的整體表現。"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#read-length-vs-quality",
+    "href": "02_sequencing_qc/nanoplot.html#read-length-vs-quality",
+    "title": "NanoPlot",
+    "section": "4. Read length vs quality",
+    "text": "4. Read length vs quality\n這通常是 scatter plot，用來看 read length 與 Q score 的關係。\n\nWhat it shows\n\n長 reads 是否明顯品質較差\n是否存在特定區域的異常點群\nlength 與 quality 是否呈現明顯 trade-off\n\n\n\nHow to interpret\n常見情況包括：\n\n長 reads 與短 reads 品質差異不大\n通常是較理想的情況。\n長 reads 普遍偏低品質\n可能代表：\n\nlibrary prep 對超長片段較不穩\nsample DNA 長片段品質不佳\n\n有一群特別短且低品質 reads\n這類 reads 在後續分析中通常比較不具代表性，可能要留意是否需要 filtering。\n\n\n\nPractical note\n這張圖很適合幫助判斷：\n\n問題是來自「整批資料」，還是只集中在某一類 reads。"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#common-qc-patterns",
+    "href": "02_sequencing_qc/nanoplot.html#common-qc-patterns",
+    "title": "NanoPlot",
+    "section": "Common QC patterns",
+    "text": "Common QC patterns\n下面這些是 NanoPlot 常見、也最值得注意的 pattern。\n\n\n\n\n\n\n\nPattern\nPossible interpretation\n\n\n\n\nread 長度整體偏短\nDNA fragmentation / degraded sample\n\n\nQ score 整體偏低\nsample quality、library prep、flow cell 或 basecalling 問題\n\n\nyield 很低\ninput / loading / run performance 問題\n\n\nyield 很早 plateau\nflow cell 活性或 loading 問題\n\n\n長 reads 品質特別差\n長片段穩定性不足\n\n\n大量極短 reads\nsample fragmentation 或 library artifact"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#how-to-use-nanoplot-in-practice",
+    "href": "02_sequencing_qc/nanoplot.html#how-to-use-nanoplot-in-practice",
+    "title": "NanoPlot",
+    "section": "How to use NanoPlot in practice",
+    "text": "How to use NanoPlot in practice\nNanoPlot 很適合放在這個流程位置：\n\nbasecalling 完成\n\nFASTQ QC summary\n\nNanoPlot 視覺化\n\n判斷是否進入 downstream analysis\n\n也就是說，它不是取代 FASTQ QC summary，而是：\n\n把 FASTQ QC 的關鍵訊息看得更直觀。"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#suggested-interpretation-workflow",
+    "href": "02_sequencing_qc/nanoplot.html#suggested-interpretation-workflow",
+    "title": "NanoPlot",
+    "section": "Suggested interpretation workflow",
+    "text": "Suggested interpretation workflow\n\nStep 1：先看總量\n\nread count\ntotal bases\nyield\n\n\n\nStep 2：再看結構\n\nread length distribution\nN50\nmean / median read length\n\n\n\nStep 3：再看品質\n\nQ score distribution\nlength vs quality\n\n\n\nStep 4：最後看 run pattern\n\nyield over time\n是否有異常衰退或早期 plateau"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#common-pitfalls",
+    "href": "02_sequencing_qc/nanoplot.html#common-pitfalls",
+    "title": "NanoPlot",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\nNanoPlot 很容易被當成「只看圖漂不漂亮」，但真正重點是判斷資料是否適合後續分析。\n\n\n\n只看單一圖，不整合其他指標\n把漂亮的分布直接等同於可用資料\n忽略分析目的差異\n不把 NanoPlot 和 read count、Q score、N50 一起看\n看見異常圖型卻沒有回頭檢查 sample / library / run 情況"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#practical-commands",
+    "href": "02_sequencing_qc/nanoplot.html#practical-commands",
+    "title": "NanoPlot",
+    "section": "Practical commands",
+    "text": "Practical commands\n\nStandard FASTQ report\nNanoPlot --fastq reads.fastq -o nanoplot_output\n\n\nSave plots as PNG\nNanoPlot --fastq reads.fastq -o nanoplot_output --plots hex dot\n\n\nCompare BAM-based aligned reads\nNanoPlot --bam aligned_reads.bam -o nanoplot_bam_output"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#quick-takeaway",
+    "href": "02_sequencing_qc/nanoplot.html#quick-takeaway",
+    "title": "NanoPlot",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\nNanoPlot 的核心價值不只是畫圖，而是幫助快速理解 reads 的長度、品質與產出模式。\n在實務上，最有用的做法是把 NanoPlot 視為 FASTQ QC 的視覺化判讀工具，並和 Q score、N50、read count 與 downstream 目的一起整合解讀。"
+  },
+  {
+    "objectID": "02_sequencing_qc/nanoplot.html#related-pages",
+    "href": "02_sequencing_qc/nanoplot.html#related-pages",
+    "title": "NanoPlot",
+    "section": "Related pages",
+    "text": "Related pages\n\nFASTQ QC\nQ score\nN50 / read length\nSequencing depth"
+  },
+  {
+    "objectID": "03_alignment/minimap2.html",
+    "href": "03_alignment/minimap2.html",
+    "title": "minimap2",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page explains what minimap2 does, when it is useful in Nanopore analysis, and why it should be interpreted as an alignment tool rather than a taxonomy classifier."
+  },
+  {
+    "objectID": "03_alignment/minimap2.html#definition",
+    "href": "03_alignment/minimap2.html#definition",
+    "title": "minimap2",
+    "section": "Definition",
+    "text": "Definition\nminimap2 是一個常用的序列比對工具，特別適合 long-read 與 reference-guided alignment。\n在 Nanopore workflow 中，它常被用來把 reads 對到已知 reference，例如 host genome、pathogen genome，或 assembly sequence。\n它的核心問題比較像是：\n\n這條 read 最像 reference 的哪一段？\n比對品質如何？\n有多少 reads 能對到目標序列？\n\nminimap2 很強，但它本質上是 alignment tool，不是 taxonomy classifier。"
+  },
+  {
+    "objectID": "03_alignment/minimap2.html#why-it-matters",
+    "href": "03_alignment/minimap2.html#why-it-matters",
+    "title": "minimap2",
+    "section": "Why it matters",
+    "text": "Why it matters\n在 Nanopore 分析中，minimap2 幾乎是最常見的基礎工具之一，因為很多實務問題最後都要回到比對：\n\n想知道樣本中是否有某個已知病原\n想確認 reads 是否主要來自 host\n想看特定 reference 的 coverage\n想評估 host depletion 是否有效\n想檢查某些 reads 的 alignment quality\n\n如果已經有明確目標 reference，minimap2 通常會是很直接、很有力的分析方式。"
+  },
+  {
+    "objectID": "03_alignment/minimap2.html#how-to-interpret",
+    "href": "03_alignment/minimap2.html#how-to-interpret",
+    "title": "minimap2",
+    "section": "How to interpret",
+    "text": "How to interpret\n這一段的重點是：minimap2 的結果要怎麼看，才不會誤解。\n\nIn practice\n在 ONT workflow 中，minimap2 常見的用途包括：\n\n將 reads 對到 host genome，估計 host background\n將 reads 對到 pathogen reference，檢查是否有支持證據\n將 reads 對到特定基因或區域，看 coverage 分布\n將 assembly 對到 reference，比較整體相似度或結構差異\n\n對 Nanopore long reads 而言，最常見的 preset 是：\n\n-x map-ont：給 ONT reads 對 reference genome 時使用\n-x asm5：常用於兩個相近 assembly 之間比對\n-x sr：給 short reads 用，不是 ONT long-read 的主力選項\n\n\n\nWhat to compare with\nminimap2 的結果不應只看「有沒有對到」，還建議一起搭配以下資訊：\n\nmapping rate\naligned read count\ncoverage breadth / depth\nsecondary / supplementary alignments\nalignment quality\nreference 的完整性與正確性\nnegative control 的表現\n\n一條 read 能 map 到某個 reference，不一定代表就能直接視為最終確認。\n尤其在近緣物種、保守區域或 database/reference 不完整時，更需要小心解讀。"
+  },
+  {
+    "objectID": "03_alignment/minimap2.html#common-pitfalls",
+    "href": "03_alignment/minimap2.html#common-pitfalls",
+    "title": "minimap2",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\nminimap2 很容易被誤當成 taxonomy tool。\n它很適合做 reference-guided validation，但不適合單獨拿來做廣泛物種分類。\n\n\n\n有 map 到，不代表一定能做物種層級確診\n沒 map 到，不代表樣本中一定沒有該目標，可能是 reference 不完整或差異太大\n只看少量局部 mapping，可能會高估證據強度\n若是近緣物種共享保守區域，可能出現看似合理但其實不夠特異的比對結果\n若不搭配 control、coverage 與背景資訊，容易過度解讀"
+  },
+  {
+    "objectID": "03_alignment/minimap2.html#tools-commands",
+    "href": "03_alignment/minimap2.html#tools-commands",
+    "title": "minimap2",
+    "section": "Tools / commands",
+    "text": "Tools / commands\nminimap2 通常不會單獨使用，常與 samtools 一起搭配。\n\nCommon tools\n\nminimap2\nsamtools\nIGV（可視化時常用）\nmosdepth / coverage summary tools\n\n\n\nExample command\nminimap2 -ax map-ont ref.fa reads.fastq &gt; aln.sam\nsamtools view -bS aln.sam | samtools sort -o aln.sorted.bam\nsamtools index aln.sorted.bam"
+  },
+  {
+    "objectID": "03_alignment/minimap2.html#quick-takeaway",
+    "href": "03_alignment/minimap2.html#quick-takeaway",
+    "title": "minimap2",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\nminimap2 是 Nanopore workflow 中非常重要的 alignment tool，適合把 reads 對到已知 reference 做驗證、coverage 檢查與 host/pathogen 分離。\n但它回答的是「read 最像 reference 的哪裡」，不是「這條 read 屬於哪個物種」；因此在 taxonomy 問題上，最好搭配其他工具與整體證據一起判讀。"
+  },
+  {
+    "objectID": "03_alignment/minimap2.html#related-pages",
+    "href": "03_alignment/minimap2.html#related-pages",
+    "title": "minimap2",
+    "section": "Related pages",
+    "text": "Related pages\n\nKraken2\nFASTQ QC\nQ score"
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html",
+    "href": "05_workflows/Contamination_sources.html",
+    "title": "Common contamination sources",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page summarizes common contamination sources in sequencing workflows and provides general strategies for identification and mitigation."
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#overview",
+    "href": "05_workflows/Contamination_sources.html#overview",
+    "title": "Common contamination sources",
+    "section": "Overview",
+    "text": "Overview\n在 Nanopore 或任何 NGS 分析中：\n\ncontamination is not an exception — it is expected\n\n因此：\n\n偵測到某個 organism ≠ 真正存在\n需要系統性判斷 contamination vs true signal"
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#major-contamination-sources",
+    "href": "05_workflows/Contamination_sources.html#major-contamination-sources",
+    "title": "Common contamination sources",
+    "section": "Major contamination sources",
+    "text": "Major contamination sources\n\n1️⃣ Reagent contamination\n來源：\n\nDNA extraction kits\nenzymes / buffers\nwater（即使是 nuclease-free）\n\n常見特徵：\n\n低 read count\n在不同樣本中反覆出現\n出現在 negative control\n\n👉 常見稱為：\n\n“kitome contamination”\n\n\n\n\n2️⃣ Environmental contamination\n來源：\n\n空氣（airborne microbes）\n操作台 / pipette\n操作者（skin microbiome）\n\n特徵：\n\nlab-specific pattern\nbatch-dependent\n與 sample type 無關\n\n\n\n\n3️⃣ Cross-sample contamination\n來源：\n\nlibrary prep 過程\nbarcode misassignment\ncarry-over\n\n特徵：\n\n出現在同一批次其他樣本\nread pattern 類似高 abundance sample\n\n\n\n\n4️⃣ Host-derived sequences\n來源：\n\n未完全去除的 host DNA\nreference misclassification\n\n特徵：\n\n大量 reads\nalignment 到 host genome\nKraken2 可能誤分類\n\n\n\n\n5️⃣ Database-related artifacts\n來源：\n\n不完整 database\nannotation 錯誤\n近緣物種\n\n特徵：\n\nKraken2 hits 不穩定\nminimap2 alignment 不一致\n分類層級模糊（genus / family）"
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#how-to-identify-contamination",
+    "href": "05_workflows/Contamination_sources.html#how-to-identify-contamination",
+    "title": "Common contamination sources",
+    "section": "How to identify contamination",
+    "text": "How to identify contamination\n\n1️⃣ Use negative controls\n👉 最重要的策略\n觀察：\n\n是否出現在 control\nabundance 是否相近\n\n\n\n\n2️⃣ Check reproducibility\n\n是否在多個樣本中出現？\n是否跨 batch？\n\n👉 高一致性但低量 → 常見 contamination\n\n\n\n3️⃣ Compare abundance\n\ntrue pathogen → 通常有較高 signal\ncontamination → 通常低且分散\n\n\n\n\n4️⃣ Evaluate alignment\n使用 minimap2：\n\n是否有良好 coverage？\n是否為局部 alignment？\n是否集中在 conserved region？\n\n\n\n\n5️⃣ Consider biological plausibility\n👉 關鍵問題：\n\n這個 organism 在這個 sample 合理嗎？\n是否符合已知 biology？"
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#practical-workflow",
+    "href": "05_workflows/Contamination_sources.html#practical-workflow",
+    "title": "Common contamination sources",
+    "section": "Practical workflow",
+    "text": "Practical workflow\n\n\n\n\n\nflowchart TD\n    A[Detection] --&gt; B{In negative control?}\n    B --&gt;|Yes| C[Likely contamination]\n    B --&gt;|No| D[Check abundance]\n\n    D --&gt; E{Low signal?}\n    E --&gt;|Yes| F[Possible contamination]\n    E --&gt;|No| G[Check alignment]\n\n    G --&gt; H{Good coverage?}\n    H --&gt;|No| I[Suspect artifact]\n    H --&gt;|Yes| J[Check context]\n\n    J --&gt; K{Biologically plausible?}\n    K --&gt;|No| L[Uncertain]\n    K --&gt;|Yes| M[Supported detection]"
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#common-contamination-patterns",
+    "href": "05_workflows/Contamination_sources.html#common-contamination-patterns",
+    "title": "Common contamination sources",
+    "section": "Common contamination patterns",
+    "text": "Common contamination patterns\n\nPattern 1：Low-level ubiquitous bacteria\n\n多樣本出現\nread count 低\ncontrol 中也存在\n\n👉 通常為 reagent / environmental contamination\n\n\n\nPattern 2：Single-read detection\n\n只有 1–2 reads\n無 alignment support\n\n👉 不應解讀為陽性\n\n\n\nPattern 3：Unexpected organism\n\n與 sample biology 不符\n無其他 supporting evidence\n\n👉 高度懷疑 contamination\n\n\n\nPattern 4：Batch-specific signal\n\n同一批次樣本出現\n不同批次消失\n\n👉 可能為 batch contamination"
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#mitigation-strategies",
+    "href": "05_workflows/Contamination_sources.html#mitigation-strategies",
+    "title": "Common contamination sources",
+    "section": "Mitigation strategies",
+    "text": "Mitigation strategies\n\nLaboratory level\n\n使用 clean workspace\n分區操作（pre-PCR / post-PCR）\n使用 filter tips\n定期清潔設備\n\n\n\n\nExperimental design\n\n加入 negative controls\n使用 technical replicates\n避免過度 multiplexing\n\n\n\n\nBioinformatics level\n\nhost depletion\nfiltering low-abundance reads\ncross-sample comparison\ndatabase curation"
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#key-principle",
+    "href": "05_workflows/Contamination_sources.html#key-principle",
+    "title": "Common contamination sources",
+    "section": "Key principle",
+    "text": "Key principle\n\n\n\n\n\n\nTip\n\n\n\nContamination cannot be completely eliminated, but it can be recognized and managed."
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#what-not-to-do",
+    "href": "05_workflows/Contamination_sources.html#what-not-to-do",
+    "title": "Common contamination sources",
+    "section": "What NOT to do",
+    "text": "What NOT to do\n\n\n\n\n\n\nWarning\n\n\n\n以下做法容易導致錯誤結論：\n\n\n\n將所有 detection 視為真實存在\n忽略 negative control\n不做 alignment validation\n過度解讀低 read count\n不考慮 sample context"
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#quick-takeaway",
+    "href": "05_workflows/Contamination_sources.html#quick-takeaway",
+    "title": "Common contamination sources",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\n在 Nanopore 分析中，contamination 是常態而非例外。\n可靠的結果來自於：control、alignment、abundance 與 biological context 的整合判讀。"
+  },
+  {
+    "objectID": "05_workflows/Contamination_sources.html#related-pages",
+    "href": "05_workflows/Contamination_sources.html#related-pages",
+    "title": "Common contamination sources",
+    "section": "Related pages",
+    "text": "Related pages\n\nInterpretation framework\nNanopore workflow\nKraken2 vs minimap2"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html",
+    "href": "05_workflows/Interpretation_framework.html",
+    "title": "Interpretation framework",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page provides a general framework for interpreting Nanopore sequencing results in pathogen detection, independent of specific experimental setups."
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#overview",
+    "href": "05_workflows/Interpretation_framework.html#overview",
+    "title": "Interpretation framework",
+    "section": "Overview",
+    "text": "Overview\nNanopore sequencing 可以快速產生大量 reads，但：\n\ndetect ≠ true presence ≠ biological relevance\n\n因此，結果判讀需要整合多個層面的證據，而不是依賴單一指標。"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#core-principle",
+    "href": "05_workflows/Interpretation_framework.html#core-principle",
+    "title": "Interpretation framework",
+    "section": "Core principle",
+    "text": "Core principle\nNanopore pathogen detection interpretation 應基於三個核心面向：\n\nSignal strength（訊號強度）\nSpecificity（特異性）\nContext（生物與實驗脈絡）\n\n👉 三者缺一不可"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#signal-strength",
+    "href": "05_workflows/Interpretation_framework.html#signal-strength",
+    "title": "Interpretation framework",
+    "section": "1️⃣ Signal strength",
+    "text": "1️⃣ Signal strength\n評估「訊號是否足夠支持存在」\n常用指標：\n\nread count（reads 數）\ntotal bases\nrelative abundance\ndepth（如果有 reference）\n\n\nInterpretation concept\n\n高 read count → 較可信\n極低 read count → 需謹慎（可能 background）\n\n\n\n\n\n\n\nWarning\n\n\n\n低 read count 的 detection 不應直接解讀為陽性。"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#specificity",
+    "href": "05_workflows/Interpretation_framework.html#specificity",
+    "title": "Interpretation framework",
+    "section": "2️⃣ Specificity",
+    "text": "2️⃣ Specificity\n評估「訊號是否真的來自目標」\n需要確認：\n\nalignment quality（minimap2）\ncoverage pattern（是否均勻）\n是否為 conserved region（可能 cross-match）\ndatabase bias（Kraken2）\n\n\n常見問題\n\n近緣物種誤判\nconserved gene（如 rRNA）造成假陽性\nk-mer overlap\n\n👉 因此：\n\nKraken2 結果應由 alignment 驗證"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#context",
+    "href": "05_workflows/Interpretation_framework.html#context",
+    "title": "Interpretation framework",
+    "section": "3️⃣ Context",
+    "text": "3️⃣ Context\n這是最重要、也最常被忽略的一層\n需要考慮：\n\nsample type（environment / tissue / culture）\nexpected microbiome\nknown contamination sources\nnegative control\nexperimental design\n\n\nExample\n\n在 environmental sample 中偵測到低量 bacteria → 可能正常\n在 sterile tissue 中偵測到同樣 bacteria → 可能重要"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#integration-logic",
+    "href": "05_workflows/Interpretation_framework.html#integration-logic",
+    "title": "Interpretation framework",
+    "section": "Integration logic",
+    "text": "Integration logic\n實務上應整合三個面向：\n\n\n\nSignal\nSpecificity\nContext\nInterpretation\n\n\n\n\nHigh\nHigh\nConsistent\nStrong evidence\n\n\nLow\nHigh\nConsistent\nPossible presence\n\n\nLow\nLow\nInconsistent\nLikely noise\n\n\nHigh\nLow\nInconsistent\nSuspect artifact"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#minimal-interpretation-workflow",
+    "href": "05_workflows/Interpretation_framework.html#minimal-interpretation-workflow",
+    "title": "Interpretation framework",
+    "section": "Minimal interpretation workflow",
+    "text": "Minimal interpretation workflow\n\n\n\n\n\nflowchart TD\n    A[Kraken2 detection] --&gt; B[minimap2 validation]\n    B --&gt; C{Good alignment?}\n\n    C --&gt;|No| D[Likely false positive]\n    C --&gt;|Yes| E[Check read count]\n\n    E --&gt; F{Sufficient signal?}\n    F --&gt;|No| G[Low confidence]\n    F --&gt;|Yes| H[Check context]\n\n    H --&gt; I{Biologically plausible?}\n    I --&gt;|No| J[Possible contamination]\n    I --&gt;|Yes| K[Supported detection]"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#common-pitfalls",
+    "href": "05_workflows/Interpretation_framework.html#common-pitfalls",
+    "title": "Interpretation framework",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\n錯誤判讀通常來自「單一指標導向」。\n\n\n\n只看 Kraken2\n只看 read count\n不做 alignment\n忽略 negative control\n忽略 sample context"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#practical-guidelinesgeneral",
+    "href": "05_workflows/Interpretation_framework.html#practical-guidelinesgeneral",
+    "title": "Interpretation framework",
+    "section": "Practical guidelines（general）",
+    "text": "Practical guidelines（general）\n以下為通用建議（非固定標準）：\n\n不依賴單一 read 作為證據\n優先確認 alignment quality\n檢查 coverage 是否合理\n與 negative control 比較\n將結果放入 biological context 解讀"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#what-this-framework-does-not-define",
+    "href": "05_workflows/Interpretation_framework.html#what-this-framework-does-not-define",
+    "title": "Interpretation framework",
+    "section": "What this framework does NOT define",
+    "text": "What this framework does NOT define\n\n\n\n\n\n\nNote\n\n\n\nThis framework does not define strict thresholds.\n\n\n以下項目需依不同實驗設定調整：\n\nread count threshold\ncoverage cutoff\nabundance cutoff\nclinical significance criteria\n\n👉 這些通常屬於：\n\nspecific project\nclinical validation\nregulatory setting"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#quick-takeaway",
+    "href": "05_workflows/Interpretation_framework.html#quick-takeaway",
+    "title": "Interpretation framework",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\nNanopore 結果判讀不是單一數值判斷，而是多層證據整合。\nSignal、specificity 與 context 必須同時考量，才能避免 false positive 或 over-interpretation。"
+  },
+  {
+    "objectID": "05_workflows/Interpretation_framework.html#related-pages",
+    "href": "05_workflows/Interpretation_framework.html#related-pages",
+    "title": "Interpretation framework",
+    "section": "Related pages",
+    "text": "Related pages\n\nNanopore workflow\nKraken2 vs minimap2\nKraken2\nminimap2"
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html",
+    "href": "05_workflows/Nanopore_workflow.html",
+    "title": "Nanopore analysis workflow",
+    "section": "",
+    "text": "Note\n\n\n\nPublic This page provides a complete end-to-end Nanopore analysis workflow, from raw data to biological interpretation."
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html#overview",
+    "href": "05_workflows/Nanopore_workflow.html#overview",
+    "title": "Nanopore analysis workflow",
+    "section": "Overview",
+    "text": "Overview\nNanopore sequencing 的分析流程可以拆成四個核心層級：\n\nData quality（資料品質）\nComposition（樣本組成）\nValidation（結果驗證）\nInterpretation（生物意義）\n\n👉 每一層回答不同問題，缺一不可"
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html#full-workflow",
+    "href": "05_workflows/Nanopore_workflow.html#full-workflow",
+    "title": "Nanopore analysis workflow",
+    "section": "Full workflow",
+    "text": "Full workflow\n\n\n\n\n\nflowchart TD\n    A[Raw signal / FAST5] --&gt; B[Basecalling]\n    B --&gt; C[FASTQ reads]\n\n    C --&gt; D[QC: Q score / read length]\n    D --&gt; E{QC pass?}\n\n    E --&gt;|No| F[Re-extract / clean-up / re-sequence]\n    E --&gt;|Yes| G[Kraken2 classification]\n\n    G --&gt; H{Candidate pathogen?}\n\n    H --&gt;|No| I[Check database / contamination / depth]\n    H --&gt;|Yes| J[minimap2 alignment]\n\n    J --&gt; K[Coverage / depth / mapping quality]\n\n    K --&gt; L{Sufficient evidence?}\n\n    L --&gt;|No| M[Increase depth / refine reference]\n    L --&gt;|Yes| N[Biological interpretation]\n\n    N --&gt; O[Report / decision making]"
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html#step-by-step-explanation",
+    "href": "05_workflows/Nanopore_workflow.html#step-by-step-explanation",
+    "title": "Nanopore analysis workflow",
+    "section": "Step-by-step explanation",
+    "text": "Step-by-step explanation\n\n1️⃣ Basecalling\n\n將 raw signal（FAST5）轉成 FASTQ\n工具：Guppy / Dorado\n\n👉 這一步決定後續所有分析品質\n\n\n\n2️⃣ QC（Quality control）\n對 FASTQ 做基本評估：\n\nQ score（品質）\nRead length / N50\nTotal bases\nRead count\n\n👉 對應頁面：\n\nQ score\nN50 / read length\n\n\n\n\n3️⃣ Classification（Kraken2）\n目的：\n\n找出樣本中「可能存在的生物」\n\n特點：\n\n快速\n高通量\n適合初步篩檢\n\n👉 對應頁面：\n\nKraken2\n\n\n\n\n4️⃣ Alignment（minimap2）\n目的：\n\n驗證特定目標是否存在\n\n評估指標：\n\ncoverage\ndepth\nmapping quality\nread consistency\n\n👉 對應頁面：\n\nminimap2\n\n\n\n\n5️⃣ Interpretation\n這一步最關鍵，也是最容易被忽略：\n需要整合：\n\nread count\ncoverage\nnegative control\nbiological plausibility\nsample context\n\n👉 這一步沒有單一工具可以取代"
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html#key-decision-points",
+    "href": "05_workflows/Nanopore_workflow.html#key-decision-points",
+    "title": "Nanopore analysis workflow",
+    "section": "Key decision points",
+    "text": "Key decision points\n\nQC 不佳\n👉 問題可能在：\n\nDNA degradation\nextraction method\nlibrary prep\ncontamination\n\n👉 不建議直接往下分析\n\n\n\nKraken2 有 hits\n👉 不代表一定存在！\n需要：\n\nminimap2 驗證\n看 coverage（不是只看 read 數）\n\n\n\n\nminimap2 有 alignment\n👉 要確認：\n\n是否為特異性 mapping\n是否有均勻 coverage\n是否可能為 contamination"
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html#minimal-working-pipeline實務版",
+    "href": "05_workflows/Nanopore_workflow.html#minimal-working-pipeline實務版",
+    "title": "Nanopore analysis workflow",
+    "section": "Minimal working pipeline（實務版）",
+    "text": "Minimal working pipeline（實務版）\n# 1. QC\nNanoPlot --fastq reads.fastq -o qc_report\n\n# 2. classification\nkraken2 --db kraken_db reads.fastq --report report.txt &gt; output.txt\n\n# 3. alignment\nminimap2 -ax map-ont ref.fa reads.fastq &gt; aln.sam"
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html#common-pitfalls",
+    "href": "05_workflows/Nanopore_workflow.html#common-pitfalls",
+    "title": "Nanopore analysis workflow",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\nNanopore workflow 最常見錯誤來自「過度簡化分析流程」。\n\n\n\n只做 Kraken2 就下結論\n忽略 QC\n不看 coverage\n不設 negative control\n過度解讀低 read count"
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html#best-practice-summary",
+    "href": "05_workflows/Nanopore_workflow.html#best-practice-summary",
+    "title": "Nanopore analysis workflow",
+    "section": "Best practice summary",
+    "text": "Best practice summary\n\n\n\n\n\n\nTip\n\n\n\n一個可靠的 Nanopore 分析流程應該同時具備：\n\nQC（確保資料可信）\nClassification（找方向）\nAlignment（確認證據）\nInterpretation（整合判讀）"
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html#suggested-figures極需",
+    "href": "05_workflows/Nanopore_workflow.html#suggested-figures極需",
+    "title": "Nanopore analysis workflow",
+    "section": "Suggested figures（極需）",
+    "text": "Suggested figures（極需）\n\n🖼️ Figure 1（已經有了）\n👉 Mermaid workflow（上面那張）\n\n\n\n🖼️ Figure 2（未來可以加）\n👉 真實案例：\n\nKraken2 barplot\nminimap2 coverage plot\n\n👉 提升網站變「教學等級」"
+  },
+  {
+    "objectID": "05_workflows/Nanopore_workflow.html#related-pages",
+    "href": "05_workflows/Nanopore_workflow.html#related-pages",
+    "title": "Nanopore analysis workflow",
+    "section": "Related pages",
+    "text": "Related pages\n\nKraken2 vs minimap2\nQ score\nN50 / read length\nKraken2\nminimap2"
+  },
+  {
+    "objectID": "alignment.html",
+    "href": "alignment.html",
+    "title": "Alignment",
+    "section": "",
+    "text": "minimap2\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Categories",
+      "Alignment"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Nano Memo",
+    "section": "",
+    "text": "這是一個給自己快速查閱用的 Nanopore 定序筆記網頁，目的在：",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "🚀 Quick access"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-access",
+    "href": "index.html#quick-access",
+    "title": "Nano Memo",
+    "section": "🚀 Quick access",
+    "text": "🚀 Quick access\n\n\nBasic concepts\n\nQ score\nN50 / read length\n\n了解常見品質指標、read length 與核心名詞。\n\n\nSequencing QC\n\nFASTQ QC\n\n快速判讀 reads 數量、長度分布與整體品質。\n\n\nAnalysis tools\n\nminimap2\nKraken2\n\n整理 alignment 與 taxonomy 分析工具的用途與差異。\n\n\nNext topics\n\nHost depletion\nSAM / BAM / PAF\nBracken\nWorkflow overview\n\n保留之後逐步補上的主題與延伸架構。",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "🚀 Quick access"
+    ]
+  },
+  {
+    "objectID": "index.html#使用原則",
+    "href": "index.html#使用原則",
+    "title": "Nano Memo",
+    "section": "使用原則",
+    "text": "使用原則\n每一頁盡量維持固定格式：\n\n定義\n\n為什麼重要\n\n實務上怎麼看\n\n常見誤解\n\n常用工具 / 指令",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "🚀 Quick access"
+    ]
+  },
+  {
+    "objectID": "index.html#public-vs-private",
+    "href": "index.html#public-vs-private",
+    "title": "Nano Memo",
+    "section": "Public vs private",
+    "text": "Public vs private\n\n🔓 Public：基本概念、工具介紹、一般分析原理\n🔒 Private：workflow decision tree、內部 SOP、敏感比較表、參數門檻",
+    "crumbs": [
+      "Home",
+      "Start here",
+      "🚀 Quick access"
+    ]
+  },
+  {
+    "objectID": "taxonomy.html",
+    "href": "taxonomy.html",
+    "title": "Taxonomy",
+    "section": "",
+    "text": "Kraken2\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Categories",
+      "Taxonomy"
+    ]
+  },
+  {
+    "objectID": "templates/note-template_public.html",
+    "href": "templates/note-template_public.html",
+    "title": "Page title",
+    "section": "",
+    "text": "Note\n\n\n\nPublic Briefly state what this page covers and what it does not cover."
+  },
+  {
+    "objectID": "templates/note-template_public.html#definition",
+    "href": "templates/note-template_public.html#definition",
+    "title": "Page title",
+    "section": "Definition",
+    "text": "Definition\n用一句到三句話定義這個名詞、工具或概念。\n\n它是什麼\n它主要拿來做什麼\n它不等於什麼"
+  },
+  {
+    "objectID": "templates/note-template_public.html#why-it-matters",
+    "href": "templates/note-template_public.html#why-it-matters",
+    "title": "Page title",
+    "section": "Why it matters",
+    "text": "Why it matters\n說明為什麼這個概念重要，特別是在 Nanopore workflow 中的角色。\n\n為什麼需要知道它\n哪些分析判斷會用到它\n如果誤解，可能造成什麼問題"
+  },
+  {
+    "objectID": "templates/note-template_public.html#how-to-interpret",
+    "href": "templates/note-template_public.html#how-to-interpret",
+    "title": "Page title",
+    "section": "How to interpret",
+    "text": "How to interpret\n這一段是最重要的，盡量寫成「實務判讀」而不是教科書定義。\n\nIn practice\n\n在 ONT / pathogen detection 中通常怎麼看\n哪些情境下要特別注意\n哪些數值或現象不一定代表問題\n\n\n\nWhat to compare with\n\n可以搭配哪些指標一起看\n不要單獨看哪一個值就下結論"
+  },
+  {
+    "objectID": "templates/note-template_public.html#common-pitfalls",
+    "href": "templates/note-template_public.html#common-pitfalls",
+    "title": "Page title",
+    "section": "Common pitfalls",
+    "text": "Common pitfalls\n\n\n\n\n\n\nWarning\n\n\n\n這裡列出最常見誤解或最容易踩雷的地方。\n\n\n\n誤解 1\n誤解 2\n誤解 3"
+  },
+  {
+    "objectID": "templates/note-template_public.html#tools-commands",
+    "href": "templates/note-template_public.html#tools-commands",
+    "title": "Page title",
+    "section": "Tools / commands",
+    "text": "Tools / commands\n列出常見相關工具、檔案格式或指令。\n\nCommon tools\n\ntool 1\ntool 2\ntool 3\n\n\n\nExample command\n# replace with a real example\ntool --input sample.fastq --output result.txt"
+  },
+  {
+    "objectID": "templates/note-template_public.html#quick-takeaway",
+    "href": "templates/note-template_public.html#quick-takeaway",
+    "title": "Page title",
+    "section": "Quick takeaway",
+    "text": "Quick takeaway\n\n\n\n\n\n\nTip\n\n\n\n用 2–4 句話總結這頁最重要的結論，讓自己未來回來看時能快速抓重點。"
+  },
+  {
+    "objectID": "templates/note-template_public.html#related-pages",
+    "href": "templates/note-template_public.html#related-pages",
+    "title": "Page title",
+    "section": "Related pages",
+    "text": "Related pages\n\nRelated page 1\nRelated page 2"
+  }
+]

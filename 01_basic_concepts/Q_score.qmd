@@ -1,0 +1,118 @@
+---
+title: "Q score"
+subtitle: "How to interpret read quality in Nanopore sequencing"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page explains what Q score means, how to interpret it in practice, and why it should not be used alone.
+:::
+
+## Definition
+
+Q score 是用來表示定序錯誤率的品質分數，通常以對數形式表示。  
+在概念上，**Q 值越高，代表單一鹼基被判錯的機率越低。**
+
+常見公式如下：
+
+```text
+Q = -10 × log10(Perror)
+```
+
+其中 `Perror` 代表單一鹼基的錯誤率。
+
+Q score 主要用來快速描述 read 的 basecalling 品質，但它**不等於整體分析結果一定正確**，也不能單獨代表資料是否可用。
+
+## Why it matters
+
+Q score 是 Nanopore workflow 中最常見、也最容易被拿來當第一眼判斷的品質指標之一。
+
+- 它可以幫助快速了解 reads 的整體品質
+- 它常影響 filtering 與後續分析策略
+- 它有助於比較不同 run、不同樣本或不同 library preparation 的表現
+
+但在實務上，Q score 的意義必須放在分析目標裡解讀。
+
+例如：
+
+- 若目標是 pathogen screening，較低但仍可判讀的 reads 可能依然有價值
+- 若目標是高品質 assembly 或 variant analysis，通常會更在意 Q score 與 error profile
+
+## How to interpret
+
+這一段的重點不是公式本身，而是：**Q score 在實務上該怎麼看。**
+
+### In practice
+
+Q score 越高，通常代表 read 的 basecalling 品質越好，但不代表所有分析結果都一定更可靠。
+
+在 Nanopore 資料中，Q score 常見的實務解讀方式如下：
+
+- Q10 代表約 90% accuracy
+- Q20 代表約 99% accuracy
+- Q30 代表約 99.9% accuracy
+
+但在 ONT 資料分析中，不能只看數值高低，而要看它是否足以支撐分析目的。
+
+例如：
+
+- 做初步病原偵測時，不一定需要非常高的 Q score
+- 若 target 能穩定檢出、結果與背景合理，即使 reads 品質不是最高，資料仍可能可用
+- 若要做精細比對、de novo assembly 或 variant-level interpretation，通常會更在意 read quality
+
+### What to compare with
+
+Q score 不應單獨解讀，建議一起搭配以下資訊判讀：
+
+- read count
+- total bases
+- read length / N50
+- mapping rate
+- target detection stability
+- background contamination
+- negative control 表現
+
+換句話說，Q score 比較像是 **quality snapshot**，不是單一決策依據。
+
+## Common pitfalls
+
+::: {.callout-warning}
+Q score 很常被過度解讀。  
+在 Nanopore workflow 中，它很重要，但不是唯一品質標準。
+:::
+
+- Q 值高，不代表 taxonomy classification 一定正確
+- Q 值低，不代表資料一定不能用
+- 不同分析目的，對 Q score 的要求不同
+- 單看平均 Q score，可能忽略 reads 分布差異
+- 若 reference、database 或 downstream method 有限制，再高的 Q score 也無法自動保證正確結果
+
+## Tools / commands
+
+Q score 相關資訊通常不會單獨存在，而是和 read QC 工具一起查看。
+
+### Common tools
+
+- NanoPlot
+- pycoQC
+- basecalling summary outputs
+- FASTQ quality summaries
+
+### Example command
+
+```bash
+NanoPlot --fastq reads.fastq -o nanoplot_qc
+```
+
+## Quick takeaway
+
+::: {.callout-tip}
+Q score 是 read quality 的快速指標，適合用來做初步品質判斷。  
+但在 Nanopore 分析中，最好把它和 read length、read count、mapping rate、背景污染與實際檢出結果一起看。  
+高 Q score 不等於結果一定正確；低 Q score 也不代表資料一定沒用。
+:::
+
+## Related pages
+
+- [N50 / read length](N50.qmd)
+- [FASTQ QC](../02_sequencing_qc/fastq_qc.qmd)

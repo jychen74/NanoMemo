@@ -1,0 +1,281 @@
+---
+title: "Common contamination sources"
+subtitle: "Understanding and controlling contamination in Nanopore sequencing"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page summarizes common contamination sources in sequencing workflows and provides general strategies for identification and mitigation.
+:::
+
+## Overview
+
+在 Nanopore 或任何 NGS 分析中：
+
+> **contamination is not an exception — it is expected**
+
+因此：
+
+- 偵測到某個 organism ≠ 真正存在
+- 需要系統性判斷 contamination vs true signal
+
+---
+
+## Major contamination sources
+
+### 1️⃣ Reagent contamination
+
+來源：
+
+- DNA extraction kits
+- enzymes / buffers
+- water（即使是 nuclease-free）
+
+常見特徵：
+
+- 低 read count
+- 在不同樣本中反覆出現
+- 出現在 negative control
+
+👉 常見稱為：
+
+> “kitome contamination”
+
+---
+
+### 2️⃣ Environmental contamination
+
+來源：
+
+- 空氣（airborne microbes）
+- 操作台 / pipette
+- 操作者（skin microbiome）
+
+特徵：
+
+- lab-specific pattern
+- batch-dependent
+- 與 sample type 無關
+
+---
+
+### 3️⃣ Cross-sample contamination
+
+來源：
+
+- library prep 過程
+- barcode misassignment
+- carry-over
+
+特徵：
+
+- 出現在同一批次其他樣本
+- read pattern 類似高 abundance sample
+
+---
+
+### 4️⃣ Host-derived sequences
+
+來源：
+
+- 未完全去除的 host DNA
+- reference misclassification
+
+特徵：
+
+- 大量 reads
+- alignment 到 host genome
+- Kraken2 可能誤分類
+
+---
+
+### 5️⃣ Database-related artifacts
+
+來源：
+
+- 不完整 database
+- annotation 錯誤
+- 近緣物種
+
+特徵：
+
+- Kraken2 hits 不穩定
+- minimap2 alignment 不一致
+- 分類層級模糊（genus / family）
+
+---
+
+## How to identify contamination
+
+### 1️⃣ Use negative controls
+
+👉 最重要的策略
+
+觀察：
+
+- 是否出現在 control
+- abundance 是否相近
+
+---
+
+### 2️⃣ Check reproducibility
+
+- 是否在多個樣本中出現？
+- 是否跨 batch？
+
+👉 高一致性但低量 → 常見 contamination
+
+---
+
+### 3️⃣ Compare abundance
+
+- true pathogen → 通常有較高 signal
+- contamination → 通常低且分散
+
+---
+
+### 4️⃣ Evaluate alignment
+
+使用 minimap2：
+
+- 是否有良好 coverage？
+- 是否為局部 alignment？
+- 是否集中在 conserved region？
+
+---
+
+### 5️⃣ Consider biological plausibility
+
+👉 關鍵問題：
+
+- 這個 organism 在這個 sample 合理嗎？
+- 是否符合已知 biology？
+
+---
+
+## Practical workflow
+
+```{mermaid}
+flowchart TD
+    A[Detection] --> B{In negative control?}
+    B -->|Yes| C[Likely contamination]
+    B -->|No| D[Check abundance]
+
+    D --> E{Low signal?}
+    E -->|Yes| F[Possible contamination]
+    E -->|No| G[Check alignment]
+
+    G --> H{Good coverage?}
+    H -->|No| I[Suspect artifact]
+    H -->|Yes| J[Check context]
+
+    J --> K{Biologically plausible?}
+    K -->|No| L[Uncertain]
+    K -->|Yes| M[Supported detection]
+```
+
+---
+
+## Common contamination patterns
+
+### Pattern 1：Low-level ubiquitous bacteria
+
+- 多樣本出現
+- read count 低
+- control 中也存在
+
+👉 通常為 reagent / environmental contamination
+
+---
+
+### Pattern 2：Single-read detection
+
+- 只有 1–2 reads
+- 無 alignment support
+
+👉 不應解讀為陽性
+
+---
+
+### Pattern 3：Unexpected organism
+
+- 與 sample biology 不符
+- 無其他 supporting evidence
+
+👉 高度懷疑 contamination
+
+---
+
+### Pattern 4：Batch-specific signal
+
+- 同一批次樣本出現
+- 不同批次消失
+
+👉 可能為 batch contamination
+
+---
+
+## Mitigation strategies
+
+### Laboratory level
+
+- 使用 clean workspace
+- 分區操作（pre-PCR / post-PCR）
+- 使用 filter tips
+- 定期清潔設備
+
+---
+
+### Experimental design
+
+- 加入 negative controls
+- 使用 technical replicates
+- 避免過度 multiplexing
+
+---
+
+### Bioinformatics level
+
+- host depletion
+- filtering low-abundance reads
+- cross-sample comparison
+- database curation
+
+---
+
+## Key principle
+
+::: {.callout-tip}
+Contamination cannot be completely eliminated, but it can be recognized and managed.
+:::
+
+---
+
+## What NOT to do
+
+::: {.callout-warning}
+以下做法容易導致錯誤結論：
+:::
+
+- 將所有 detection 視為真實存在
+- 忽略 negative control
+- 不做 alignment validation
+- 過度解讀低 read count
+- 不考慮 sample context
+
+---
+
+## Quick takeaway
+
+::: {.callout-tip}
+在 Nanopore 分析中，contamination 是常態而非例外。  
+可靠的結果來自於：control、alignment、abundance 與 biological context 的整合判讀。
+:::
+
+---
+
+## Related pages
+
+- [Interpretation framework](Interpretation_framework.qmd)
+- [Nanopore workflow](Nanopore_workflow.qmd)
+- [Kraken2 vs minimap2](Kraken2_vs_minimap2.qmd)

@@ -1,0 +1,113 @@
+---
+title: "minimap2"
+subtitle: "A practical alignment tool for mapping Nanopore reads to reference sequences"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page explains what minimap2 does, when it is useful in Nanopore analysis, and why it should be interpreted as an alignment tool rather than a taxonomy classifier.
+:::
+
+## Definition
+
+`minimap2` 是一個常用的序列比對工具，特別適合 long-read 與 reference-guided alignment。  
+在 Nanopore workflow 中，它常被用來把 reads 對到已知 reference，例如 host genome、pathogen genome，或 assembly sequence。
+
+它的核心問題比較像是：
+
+- 這條 read 最像 reference 的哪一段？
+- 比對品質如何？
+- 有多少 reads 能對到目標序列？
+
+`minimap2` 很強，但它本質上是 **alignment tool**，不是 taxonomy classifier。
+
+## Why it matters
+
+在 Nanopore 分析中，`minimap2` 幾乎是最常見的基礎工具之一，因為很多實務問題最後都要回到比對：
+
+- 想知道樣本中是否有某個已知病原
+- 想確認 reads 是否主要來自 host
+- 想看特定 reference 的 coverage
+- 想評估 host depletion 是否有效
+- 想檢查某些 reads 的 alignment quality
+
+如果已經有明確目標 reference，`minimap2` 通常會是很直接、很有力的分析方式。
+
+## How to interpret
+
+這一段的重點是：**minimap2 的結果要怎麼看，才不會誤解。**
+
+### In practice
+
+在 ONT workflow 中，`minimap2` 常見的用途包括：
+
+- 將 reads 對到 host genome，估計 host background
+- 將 reads 對到 pathogen reference，檢查是否有支持證據
+- 將 reads 對到特定基因或區域，看 coverage 分布
+- 將 assembly 對到 reference，比較整體相似度或結構差異
+
+對 Nanopore long reads 而言，最常見的 preset 是：
+
+- `-x map-ont`：給 ONT reads 對 reference genome 時使用
+- `-x asm5`：常用於兩個相近 assembly 之間比對
+- `-x sr`：給 short reads 用，不是 ONT long-read 的主力選項
+
+### What to compare with
+
+`minimap2` 的結果不應只看「有沒有對到」，還建議一起搭配以下資訊：
+
+- mapping rate
+- aligned read count
+- coverage breadth / depth
+- secondary / supplementary alignments
+- alignment quality
+- reference 的完整性與正確性
+- negative control 的表現
+
+一條 read 能 map 到某個 reference，不一定代表就能直接視為最終確認。  
+尤其在近緣物種、保守區域或 database/reference 不完整時，更需要小心解讀。
+
+## Common pitfalls
+
+::: {.callout-warning}
+`minimap2` 很容易被誤當成 taxonomy tool。  
+它很適合做 reference-guided validation，但不適合單獨拿來做廣泛物種分類。
+:::
+
+- 有 map 到，不代表一定能做物種層級確診
+- 沒 map 到，不代表樣本中一定沒有該目標，可能是 reference 不完整或差異太大
+- 只看少量局部 mapping，可能會高估證據強度
+- 若是近緣物種共享保守區域，可能出現看似合理但其實不夠特異的比對結果
+- 若不搭配 control、coverage 與背景資訊，容易過度解讀
+
+## Tools / commands
+
+`minimap2` 通常不會單獨使用，常與 `samtools` 一起搭配。
+
+### Common tools
+
+- minimap2
+- samtools
+- IGV（可視化時常用）
+- mosdepth / coverage summary tools
+
+### Example command
+
+```bash
+minimap2 -ax map-ont ref.fa reads.fastq > aln.sam
+samtools view -bS aln.sam | samtools sort -o aln.sorted.bam
+samtools index aln.sorted.bam
+```
+
+## Quick takeaway
+
+::: {.callout-tip}
+`minimap2` 是 Nanopore workflow 中非常重要的 alignment tool，適合把 reads 對到已知 reference 做驗證、coverage 檢查與 host/pathogen 分離。  
+但它回答的是「read 最像 reference 的哪裡」，不是「這條 read 屬於哪個物種」；因此在 taxonomy 問題上，最好搭配其他工具與整體證據一起判讀。
+:::
+
+## Related pages
+
+- [Kraken2](../04_taxonomy/kraken2.qmd)
+- [FASTQ QC](../02_sequencing_qc/fastq_qc.qmd)
+- [Q score](../01_basic_concepts/Q_score.qmd)

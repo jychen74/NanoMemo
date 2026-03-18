@@ -1,0 +1,15 @@
+.quarto/
+*.Rproj
+.Rhistory
+.Ruserdata
+.DS_Store
+Thumbs.db
+
+# Quarto / temp / cache
+**/quarto-session-temp*/
+**/project-cache/
+**/preview/
+
+04_taxonomy/kraken2_files/
+/.quarto/
+**/*.quarto_ipynb

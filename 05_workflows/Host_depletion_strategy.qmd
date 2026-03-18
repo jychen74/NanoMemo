@@ -1,0 +1,154 @@
+---
+title: "Host depletion strategy"
+subtitle: "Balancing experimental and computational approaches in Nanopore sequencing"
+---
+
+::: {.callout-note}
+<span class="badge-private">Private</span>
+This page documents internal strategies and considerations for host depletion in sequencing workflows.
+:::
+
+## Overview
+
+在多數 biological samples（特別是動物組織）中：
+
+> host DNA 通常佔 >90%
+
+因此：
+
+- 會嚴重影響 pathogen detection sensitivity
+- 增加 sequencing cost
+- 干擾 downstream analysis
+
+---
+
+## Two major strategies
+
+### 1️⃣ Experimental depletion（wet lab）
+
+方法：
+
+- host DNA depletion kits
+- selective lysis
+- nuclease treatment
+- enrichment protocols
+
+優點：
+
+- 從源頭降低 host DNA
+- 提高 pathogen signal
+
+缺點：
+
+- 可能造成 bias
+- 可能損失 target DNA
+- 成本增加
+
+---
+
+### 2️⃣ Computational depletion（bioinformatics）
+
+方法：
+
+- Kraken2 host database filtering
+- minimap2 alignment to host genome
+- read removal
+
+優點：
+
+- 靈活
+- 可重複分析
+- 不影響原始樣本
+
+缺點：
+
+- 無法回收 sequencing capacity
+- 依賴 reference genome
+- 可能誤刪 reads
+
+---
+
+## Strategy comparison
+
+| Aspect | Experimental | Computational |
+|--------|------------|--------------|
+| Timing | pre-sequencing | post-sequencing |
+| Cost impact | ↑ | → |
+| Flexibility | 低 | 高 |
+| Bias risk | 有 | 較低 |
+| Sensitivity | ↑（若成功） | 中等 |
+
+---
+
+## Practical decision framework
+
+```{mermaid}
+flowchart TD
+    A[Sample type] --> B{High host content?}
+    B -->|Yes| C[Consider experimental depletion]
+    B -->|No| D[Direct sequencing]
+
+    C --> E[Sequencing]
+    D --> E
+
+    E --> F[Computational host removal]
+```
+
+---
+
+## Internal considerations（PRIVATE）
+
+### When to prioritize experimental depletion
+
+- host DNA >> microbial DNA
+- 需要高 sensitivity detection
+- sequencing budget limited
+
+---
+
+### When to rely on computational filtering
+
+- exploratory analysis
+- reference genome available
+- 不確定 target
+
+---
+
+### Combined strategy（推薦）
+
+> experimental + computational
+
+- wet lab 降低背景
+- bioinformatics refine results
+
+---
+
+## Risks and caveats
+
+- 過度 depletion → loss of pathogen signal
+- reference genome 不完整 → filtering 失效
+- conserved regions → 誤判
+
+---
+
+## Key principle
+
+::: {.callout-tip}
+Host depletion 是 sensitivity optimization，而不是必要條件。
+:::
+
+---
+
+## Internal notes（可自行填）
+
+- 使用的 kit：
+- bead ratio / protocol：
+- host genome version：
+- filtering criteria：
+
+---
+
+## Related pages
+
+- [Nanopore workflow](Nanopore_workflow.qmd)
+- [Interpretation framework](Interpretation_framework.qmd)

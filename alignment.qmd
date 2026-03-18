@@ -1,0 +1,9 @@
+---
+title: "Alignment"
+
+listing:
+  contents: 03_alignment
+  type: default
+  sort: "file-name"
+  fields: [title]
+---

@@ -1,0 +1,72 @@
+---
+subtitle: "Personal notes for Oxford Nanopore sequencing and analysis"
+---
+<!-- 
+::: {.callout-note}
+This is a personal technical reference for Nanopore sequencing workflows.  
+This site is not affiliated with Oxford Nanopore Technologies.
+::: -->
+
+這是一個給自己快速查閱用的 Nanopore 定序筆記網頁，目的在：
+
+- 快速複習重要概念
+- 幫助分析流程與工具選擇
+- 保留之後延伸成教學材料與內部整理的空間
+
+## 🚀 Quick access
+
+::: {.memo-grid}
+
+::: {.memo-card}
+### Basic concepts
+
+- [Q score](01_basic_concepts/Q_score.qmd)
+- [N50 / read length](01_basic_concepts/N50.qmd)
+
+了解常見品質指標、read length 與核心名詞。
+:::
+
+::: {.memo-card}
+### Sequencing QC
+
+- [FASTQ QC](02_sequencing_qc/fastq_qc.qmd)
+
+快速判讀 reads 數量、長度分布與整體品質。
+:::
+
+::: {.memo-card}
+### Analysis tools
+
+- [minimap2](03_alignment/minimap2.qmd)
+- [Kraken2](04_taxonomy/kraken2.qmd)
+
+整理 alignment 與 taxonomy 分析工具的用途與差異。
+:::
+
+::: {.memo-card}
+### Next topics
+
+- Host depletion
+- SAM / BAM / PAF
+- Bracken
+- Workflow overview
+
+保留之後逐步補上的主題與延伸架構。
+:::
+
+:::
+
+## 使用原則
+
+每一頁盡量維持固定格式：
+
+1. 定義  
+2. 為什麼重要  
+3. 實務上怎麼看  
+4. 常見誤解  
+5. 常用工具 / 指令  
+
+## Public vs private
+
+- 🔓 Public：基本概念、工具介紹、一般分析原理
+- 🔒 Private：workflow decision tree、內部 SOP、敏感比較表、參數門檻

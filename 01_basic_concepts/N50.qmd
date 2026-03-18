@@ -1,0 +1,124 @@
+---
+title: "N50 / read length"
+subtitle: "How to interpret read length distribution in Nanopore sequencing"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page explains what N50 and read length mean, how to interpret them in practice, and why they should not be used as a single performance indicator.
+:::
+
+## Definition
+
+**Read length** 指的是每一條 sequencing read 的長度（bp）。
+
+**N50** 是一個用來描述 read length 分布的統計指標，定義為：
+
+> 將所有 reads 依長度排序後，累積長度達到總量 50% 時所對應的 read 長度。
+
+簡單來說：
+
+- N50 越大，代表 dataset 中有較多較長的 reads
+- N50 反映的是「長度分布」，不是單一 read 的品質
+
+## Why it matters
+
+在 Nanopore sequencing 中，read length 是一個非常重要的特性，因為 long-read 的價值就在於：
+
+- 可以跨越重複區域
+- 可以提供較完整的結構資訊
+- 在某些分析（assembly、structural variation）中特別重要
+
+N50 常被用來快速描述一個 dataset 的「長度表現」，例如：
+
+- library preparation 是否成功
+- DNA fragmentation 是否過度
+- 不同 run 之間的表現比較
+
+但在不同應用情境中，read length 的重要性也不同：
+
+- pathogen detection：通常不需要極長 reads
+- genome assembly：通常會非常在意 read length
+- metagenomics：需要平衡 read length 與 read count
+
+## How to interpret
+
+### In practice
+
+在 ONT workflow 中，read length 與 N50 的解讀應該放在「分析目的」的脈絡下。
+
+常見實務觀察：
+
+- N50 高 → 通常代表 DNA 品質較好、fragmentation 較少
+- N50 低 → 可能代表 DNA degraded、或 library prep 過程中產生過多短片段
+
+但要注意：
+
+- N50 是 distribution summary，不代表所有 reads 都很長
+- 少數極長 reads 可能會拉高平均值，但不一定改變整體結構
+
+### What to compare with
+
+N50 不應單獨解讀，建議搭配以下資訊：
+
+- read count（總 reads 數）
+- total bases
+- read length distribution（直方圖）
+- median read length
+- Q score（品質）
+- mapping rate（是否真的有用）
+
+例如：
+
+- 高 N50 + 低 read count → 可能長但不夠多
+- 低 N50 + 高 read count → 可能短但量足夠
+- N50 改善但 target detection 沒變 → 可能對該分析影響不大
+
+## Common pitfalls
+
+::: {.callout-warning}
+N50 是一個很容易被誤用或過度解讀的指標。
+:::
+
+- 把 N50 當作「越高越好」的單一指標
+- 忽略 read length 分布，只看單一 summary statistic
+- 不同分析目的使用同一個 N50 標準
+- 把 N50 當成品質指標（它不是）
+- 在 read count 很低的情況下解讀 N50（統計不穩定）
+
+## Tools / commands
+
+read length 與 N50 通常透過 QC 工具查看，而不是單獨計算。
+
+### Common tools
+
+- NanoPlot
+- pycoQC
+- seqkit stats
+- custom scripts（length distribution）
+
+### Example command
+
+```bash
+NanoPlot --fastq reads.fastq -o nanoplot_length
+```
+
+或使用 seqkit：
+
+```bash
+seqkit stats reads.fastq
+```
+
+## Quick takeaway
+
+::: {.callout-tip}
+N50 是描述 read length 分布的統計指標，不是品質指標。  
+在 Nanopore 分析中，read length 的重要性取決於分析目的；  
+比起追求單一高 N50，更重要的是同時考慮 read count、分布、品質與實際分析結果。
+:::
+
+## Related pages
+
+- [Q score](Q_score.qmd)
+- [FASTQ QC](../02_sequencing_qc/fastq_qc.qmd)
+- [minimap2](../03_alignment/minimap2.qmd)

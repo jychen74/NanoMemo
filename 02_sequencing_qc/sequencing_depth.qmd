@@ -1,0 +1,262 @@
+---
+title: "Sequencing depth"
+subtitle: "How to interpret coverage and data sufficiency in Nanopore sequencing"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page explains what sequencing depth means, how to estimate it, and how to interpret it in Nanopore workflows.
+:::
+
+## Definition
+
+Sequencing depth 通常指的是某個 reference sequence 被 reads 覆蓋的程度。  
+最常見的概念是 **coverage**，也就是：
+
+> 平均每個位置被讀到幾次
+
+在最簡化的情況下，可用下列方式估算：
+
+```text
+Coverage = Total bases sequenced / Reference size
+```
+
+例如：
+
+- total bases = 1 Gb
+- reference genome = 5 Mb
+
+則理論平均 coverage 約為：
+
+```text
+1,000,000,000 / 5,000,000 = 200×
+```
+
+但在實務上，sequencing depth 並不只是單一數值，還要考慮 coverage 是否均勻、是否集中在少數區域，以及是否真的支持要分析目的。
+
+## Why it matters
+
+Sequencing depth 是判斷資料量是否足夠的重要指標之一。
+
+它會影響：
+
+- pathogen detection sensitivity
+- alignment confidence
+- assembly completeness
+- variant calling reliability
+- 結果判讀的穩定性
+
+如果 depth 太低，可能出現：
+
+- 目標 reads 太少
+- coverage 斷裂
+- 結果不穩定
+- 重複實驗時不一致
+
+但 depth 很高，也不代表一定能直接得到高品質結論。  
+因為 depth 反映的是**資料量**，不是自動保證資料**品質**或**特異性**。
+
+## Basic concept
+
+Sequencing depth 最常見有兩種理解方式：
+
+### 1. Average depth
+
+指整體平均覆蓋程度。
+
+這是最常見、也最容易報告的數值，例如：
+
+- 10×
+- 30×
+- 100×
+
+它適合做整體概念判斷，但無法告訴我們 coverage 是否均勻。
+
+### 2. Coverage breadth
+
+指 reference 中有多少比例真的被 reads 覆蓋到。
+
+例如：
+
+- 10× average depth 但只覆蓋 20% genome
+- 10× average depth 且覆蓋 95% genome
+
+這兩種情況的解讀就完全不同。
+
+因此，在 Nanopore 分析中，**average depth** 與 **coverage breadth** 最好一起看。
+
+## How to interpret
+
+### In practice
+
+在 Nanopore workflow 中，sequencing depth 的解讀要依分析目的而定。
+
+#### For pathogen detection
+
+如果目的是：
+
+> 樣本中是否存在某個已知目標
+
+那重點通常不是追求很高 depth，而是：
+
+- 是否有足夠 supporting reads
+- 是否有合理 alignment
+- 是否有一定 coverage support
+- 是否和 control / biological context 一致
+
+這種情況下，低到中等 depth 也可能有意義。
+
+#### For genome assembly
+
+如果目的是 assembly，depth 通常更重要。
+
+因為需要：
+
+- 足夠覆蓋整個 genome
+- 跨越複雜區域
+- 降低 gaps
+- 提高 consensus reliability
+
+#### For variant calling
+
+如果目的是 variant-level analysis，除了 depth 之外，還要特別注意：
+
+- base quality
+- alignment quality
+- local coverage consistency
+- strand bias / error pattern
+
+### What to compare with
+
+Sequencing depth 不應單獨解讀，建議一起比較：
+
+- read count
+- total bases
+- Q score
+- read length / N50
+- mapping rate
+- coverage breadth
+- target-specific coverage pattern
+
+例如：
+
+- 高 depth 但只集中在少數區域 → 證據有限
+- 中等 depth 且 coverage 分布合理 → 可能比單純高 depth 更有意義
+- total bases 很高，但多數為 host DNA → target depth 仍可能不足
+
+## Typical ranges
+
+不同分析目的對 depth 的需求不同，下表只是**通用概念**，不是固定標準。
+
+| Application | General depth concept |
+|---|---|
+| Presence / screening | 低到中等 depth 也可能有用 |
+| Metagenomics | highly variable |
+| Reference-guided validation | 通常希望有可解讀 coverage |
+| Assembly | 通常需要較高 depth |
+| Variant calling | 通常需要較高且較穩定的局部 depth |
+
+重點不是套用某個固定數字，而是：
+
+> 資料深度是否足以支撐想回答的問題
+
+## Nanopore-specific considerations
+
+Nanopore 的 sequencing depth 解讀和 short-read 不太一樣，因為它有幾個特性：
+
+- read length 較長
+- coverage 可能不均勻
+- per-read error rate 較高
+- host background 常影響 target depth
+
+因此，在 Nanopore workflow 中，depth interpretation 通常要同時考慮：
+
+- quality
+- alignment
+- read distribution
+- biological context
+
+也就是說：
+
+> 同樣是 10×，在不同 Nanopore dataset 裡，意義可能差很多
+
+## Common pitfalls
+
+::: {.callout-warning}
+Sequencing depth 很常被誤當成「越高越好」的單一指標。
+:::
+
+- 把平均 depth 當成完整證據
+- 忽略 coverage breadth
+- 不看 target-specific depth，只看 total bases
+- 把高 depth 直接等同於高可信度
+- 不同分析目的使用同一套 depth 標準
+- 忽略 host DNA 對有效 depth 的影響
+
+## Common tools
+
+Sequencing depth 通常需要 reference-based analysis 才能真正計算或視覺化。
+
+常見工具包括：
+
+- `samtools depth`
+- `mosdepth`
+- `bedtools genomecov`
+- alignment summary tools
+- IGV（視覺化 coverage 時很常用）
+
+## Example commands
+
+### Using samtools depth
+
+```bash
+samtools depth aligned_reads.bam > depth.txt
+```
+
+### Calculate average depth from depth file
+
+```bash
+awk '{sum+=$3} END {print sum/NR}' depth.txt
+```
+
+### Using mosdepth
+
+```bash
+mosdepth sample aligned_reads.bam
+```
+
+## Practical mindset
+
+Sequencing depth 可以分成三層來看：
+
+### Layer 1：有多少資料？
+- total bases
+- mapped reads
+
+### Layer 2：有多少 target coverage？
+- average depth
+- breadth of coverage
+
+### Layer 3：這些 coverage 有沒有意義？
+- 是否均勻
+- 是否集中在合理區域
+- 是否與 biological context 一致
+
+真正重要的不是單一 coverage 數字，而是：
+
+> 這些 reads 是否足以支持對目標的解讀
+
+## Quick takeaway
+
+::: {.callout-tip}
+Sequencing depth 是資料量與覆蓋程度的核心指標，但不是品質保證。  
+在 Nanopore workflow 中，最好把 depth 和 coverage breadth、Q score、read length、alignment quality 與 target context 一起解讀。
+:::
+
+## Related pages
+
+- [FASTQ QC](fastq_qc.qmd)
+- [NanoPlot](nanoplot.qmd)
+- [Q score](../01_basic_concepts/Q_score.qmd)
+- [N50 / read length](../01_basic_concepts/N50.qmd)
+- [minimap2](../03_alignment/minimap2.qmd)

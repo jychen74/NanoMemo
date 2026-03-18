@@ -1,0 +1,183 @@
+---
+title: "Read count vs confidence"
+subtitle: "Semi-quantitative interpretation of Nanopore detection signals"
+---
+
+::: {.callout-note}
+<span class="badge-private">Private</span>
+This page documents internal logic for interpreting read count and confidence levels in detection workflows.
+:::
+
+## Overview
+
+Nanopore sequencing 在 pathogen detection 中：
+
+> read count ≠ absolute quantification  
+但也 ≠ 沒有意義
+
+👉 它是一種 **semi-quantitative signal**
+
+---
+
+## Core concept
+
+read count 反映：
+
+- abundance（部分）
+- sequencing depth
+- library bias
+- stochastic variation
+
+因此：
+
+> read count 必須與其他指標一起解讀
+
+---
+
+## Signal interpretation layers
+
+### Layer 1：Presence signal
+
+- 是否存在 reads？
+
+👉 只能回答：
+
+> "可能存在"
+
+---
+
+### Layer 2：Strength
+
+- read count
+- relative abundance
+
+👉 提供：
+
+> signal 強度
+
+---
+
+### Layer 3：Support
+
+- alignment quality
+- coverage
+
+👉 提供：
+
+> 是否可信
+
+---
+
+### Layer 4：Context
+
+- sample type
+- control
+- biology
+
+👉 決定：
+
+> 是否有意義
+
+---
+
+## Conceptual model
+
+```{mermaid}
+flowchart TD
+    A[Read count] --> B[Signal strength]
+    B --> C[Alignment validation]
+    C --> D[Context evaluation]
+    D --> E[Confidence level]
+```
+
+---
+
+## Internal interpretation tiers（可自行定義）
+
+| Tier | Description | Confidence |
+|------|------------|-----------|
+| Tier 0 | No detection | None |
+| Tier 1 | Very low reads | Very low |
+| Tier 2 | Moderate reads | Suggestive |
+| Tier 3 | High reads + good alignment | Strong |
+
+👉 ⚠️ threshold 需依專案定義
+
+---
+
+## Key influencing factors
+
+- sequencing depth
+- host DNA proportion
+- library efficiency
+- genome size（target organism）
+- GC bias
+
+---
+
+## Practical considerations
+
+### Low read count
+
+可能：
+
+- early infection
+- low abundance organism
+- contamination
+
+👉 必須搭配：
+
+- alignment
+- control
+
+---
+
+### High read count
+
+通常：
+
+- 較可信
+但仍需確認：
+
+- specificity
+- context
+
+---
+
+## Clinical vs environmental
+
+### Clinical sample
+
+- 偏向高 specificity
+- 低 read count 需謹慎
+
+---
+
+### Environmental sample
+
+- 高 diversity
+- 低 read count 常見
+
+---
+
+## Key principle
+
+::: {.callout-tip}
+Read count 是訊號強度，而不是證據本身。
+:::
+
+---
+
+## Internal notes（可填）
+
+- read count threshold：
+- coverage cutoff：
+- control rule：
+- reporting criteria：
+
+---
+
+## Related pages
+
+- [Interpretation framework](Interpretation_framework.qmd)
+- [Contamination sources](Contamination_sources.qmd)

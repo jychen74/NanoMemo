@@ -1,0 +1,123 @@
+---
+title: "Kraken2"
+subtitle: "A practical taxonomy classifier for rapid screening of Nanopore sequencing reads"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+This page explains what Kraken2 does, when it is useful in Nanopore analysis, and why its results should be interpreted as rapid taxonomic classification rather than final confirmation.
+:::
+
+## Definition
+
+`Kraken2` 是一個常用的 **taxonomy classification tool**，主要利用 **k-mer matching** 的方式，快速判斷一條 read 最可能屬於哪個分類群。
+
+在 Nanopore workflow 中，它常被用來回答這類問題：
+
+- 這個樣本裡可能有哪些生物？
+- 有沒有某些可疑病原的 reads？
+- 不同樣本之間的分類組成有什麼差異？
+
+`Kraken2` 的強項是 **快、可大規模處理、適合 broad screening**，但它本質上不是傳統 alignment tool，也不是最終確認工具。
+
+## Why it matters
+
+在 Nanopore 分析中，`Kraken2` 很適合當作第一層的快速篩檢工具，特別是在還不知道樣本裡可能有什麼時。
+
+常見用途包括：
+
+- metagenomic screening
+- pathogen discovery 的初步探索
+- environmental sample 的分類概覽
+- 比較不同樣本的 taxonomic composition
+- 快速評估是否值得再進一步做 validation
+
+如果問題是：
+
+> 樣本中可能有什麼？
+
+那 `Kraken2` 往往比直接做 reference alignment 更有效率。
+
+## How to interpret
+
+這一段的重點是：**Kraken2 的結果很有用，但不能用得太快、太滿。**
+
+### In practice
+
+在 ONT workflow 中，`Kraken2` 常見的實務用途包括：
+
+- 初步掃描樣本中可能存在的微生物
+- 比較不同樣本的分類組成差異
+- 協助挑出需要後續驗證的 candidate targets
+- 在 host depletion 前後，觀察非宿主 reads 的變化
+
+它回答的問題比較像是：
+
+- 這條 read 的 k-mer 特徵最像哪一類生物？
+- 這批 reads 整體上比較偏向哪些 taxonomic groups？
+
+因此，`Kraken2` 很適合當作 **先找方向** 的工具。
+
+### What to compare with
+
+`Kraken2` 的結果不建議單獨解讀，通常要搭配以下資訊一起看：
+
+- classified / unclassified reads 比例
+- report 中不同 taxonomic level 的分布
+- negative control 的結果
+- 目標 reads 的數量是否足夠
+- 是否集中於特定 species，還是分散到多個近緣分類群
+- 後續 `minimap2` 或其他 alignment-based validation
+- reference / database 的完整性
+
+如果某個目標只出現極少數 reads，或同時有許多近緣物種一起冒出來，就要特別小心，不宜直接下強結論。
+
+## Common pitfalls
+
+::: {.callout-warning}
+Kraken2 很適合做快速分類，但它不等於最終證據。  
+在 Nanopore pathogen detection 中，通常更適合把它視為 screening step，而不是 final confirmation。
+:::
+
+- report 裡出現 species 名稱，不代表一定能直接當作最終鑑定
+- 極少量的 reads 可能來自背景污染、index hopping、database bias 或 common k-mer
+- database 不完整時，可能會判不到、判偏，或只停留在較高分類層級
+- 近緣物種之間可能共享大量 k-mers，造成分類不夠特異
+- 不同樣本間若 read depth 差很多，直接比較 raw counts 可能會誤導
+- 若不搭配 control 與後續 validation，容易過度解讀
+
+## Tools / commands
+
+`Kraken2` 常和 report parsing、read abundance summary、後續 alignment tool 一起使用。
+
+### Common tools
+
+- Kraken2
+- Bracken
+- Krona
+- minimap2
+- downstream summary / visualization scripts
+
+### Example command
+
+```bash
+kraken2 \
+  --db /path/to/db \
+  --report sample.report.txt \
+  --output sample.kraken.txt \
+  reads.fastq
+```
+
+## Quick takeaway
+
+::: {.callout-tip}
+`Kraken2` 是非常適合 Nanopore workflow 的快速 taxonomy classifier，特別適合做 broad screening、初步探索與 candidate detection。  
+但它比較像是在回答「這條 read 比較像哪一類生物」，而不是「這一定就是某個物種」。  
+因此最好的做法通常是：先用 Kraken2 找方向，再用 minimap2 或其他方法做後續驗證。
+:::
+
+## Related pages
+
+- [minimap2](../03_alignment/minimap2.qmd)
+- [FASTQ QC](../02_sequencing_qc/fastq_qc.qmd)
+- [Q score](../01_basic_concepts/Q_score.qmd)

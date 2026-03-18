@@ -1,0 +1,77 @@
+---
+title: "Page title"
+subtitle: "One-line summary of this concept or tool"
+---
+
+::: {.callout-note}
+<span class="badge-private">Private</span>
+Internal workflow notes, decision rules, or operational details.
+:::
+
+## Definition
+
+用一句到三句話定義這個名詞、工具或概念。
+
+- 它是什麼
+- 它主要拿來做什麼
+- 它不等於什麼
+
+## Why it matters
+
+說明為什麼這個概念重要，特別是在 Nanopore workflow 中的角色。
+
+- 為什麼需要知道它
+- 哪些分析判斷會用到它
+- 如果誤解，可能造成什麼問題
+
+## How to interpret
+
+這一段是最重要的，盡量寫成「實務判讀」而不是教科書定義。
+
+### In practice
+- 在 ONT / pathogen detection 中通常怎麼看
+- 哪些情境下要特別注意
+- 哪些數值或現象不一定代表問題
+
+### What to compare with
+- 可以搭配哪些指標一起看
+- 不要單獨看哪一個值就下結論
+
+## Common pitfalls
+
+::: {.callout-warning}
+這裡列出最常見誤解或最容易踩雷的地方。
+:::
+
+- 誤解 1
+- 誤解 2
+- 誤解 3
+
+## Tools / commands
+
+列出常見相關工具、檔案格式或指令。
+
+### Common tools
+- tool 1
+- tool 2
+- tool 3
+
+### Example command
+
+```bash
+# replace with a real example
+tool --input sample.fastq --output result.txt
+```
+
+## Quick takeaway
+
+::: {.callout-tip}
+用 2–4 句話總結這頁最重要的結論，讓自己未來回來看時能快速抓重點。
+:::
+
+## Related pages
+
+- [Related page 1](link)
+- [Related page 2](link)
+
+

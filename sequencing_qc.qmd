@@ -1,0 +1,9 @@
+---
+title: "Sequencing QC"
+
+listing:
+  contents: 02_sequencing_qc
+  type: default
+  sort: "file-name"
+  fields: [title]
+---

@@ -1,0 +1,9 @@
+---
+title: "Taxonomy"
+
+listing:
+  contents: 04_taxonomy
+  type: default
+  sort: "file-name"
+  fields: [title]
+---

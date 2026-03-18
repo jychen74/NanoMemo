@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Common contamination sources – Nano Memo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5bd799761519bfa893395a4e47c2c3c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Nano Memo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../basic_concepts.html"> 
+<span class="menu-text">Basic concepts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sequencing_qc.html"> 
+<span class="menu-text">QC</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../alignment.html"> 
+<span class="menu-text">Alignment</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../taxonomy.html"> 
+<span class="menu-text">Taxonomy</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../workflows.html"> 
+<span class="menu-text">Workflows</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Common contamination sources</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Start here</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🚀 Quick access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Categories</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic concepts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sequencing_qc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sequencing QC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../alignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Alignment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../taxonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Taxonomy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workflows</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#major-contamination-sources" id="toc-major-contamination-sources" class="nav-link" data-scroll-target="#major-contamination-sources">Major contamination sources</a>
+  <ul class="collapse">
+  <li><a href="#reagent-contamination" id="toc-reagent-contamination" class="nav-link" data-scroll-target="#reagent-contamination">1️⃣ Reagent contamination</a></li>
+  <li><a href="#environmental-contamination" id="toc-environmental-contamination" class="nav-link" data-scroll-target="#environmental-contamination">2️⃣ Environmental contamination</a></li>
+  <li><a href="#cross-sample-contamination" id="toc-cross-sample-contamination" class="nav-link" data-scroll-target="#cross-sample-contamination">3️⃣ Cross-sample contamination</a></li>
+  <li><a href="#host-derived-sequences" id="toc-host-derived-sequences" class="nav-link" data-scroll-target="#host-derived-sequences">4️⃣ Host-derived sequences</a></li>
+  <li><a href="#database-related-artifacts" id="toc-database-related-artifacts" class="nav-link" data-scroll-target="#database-related-artifacts">5️⃣ Database-related artifacts</a></li>
+  </ul></li>
+  <li><a href="#how-to-identify-contamination" id="toc-how-to-identify-contamination" class="nav-link" data-scroll-target="#how-to-identify-contamination">How to identify contamination</a>
+  <ul class="collapse">
+  <li><a href="#use-negative-controls" id="toc-use-negative-controls" class="nav-link" data-scroll-target="#use-negative-controls">1️⃣ Use negative controls</a></li>
+  <li><a href="#check-reproducibility" id="toc-check-reproducibility" class="nav-link" data-scroll-target="#check-reproducibility">2️⃣ Check reproducibility</a></li>
+  <li><a href="#compare-abundance" id="toc-compare-abundance" class="nav-link" data-scroll-target="#compare-abundance">3️⃣ Compare abundance</a></li>
+  <li><a href="#evaluate-alignment" id="toc-evaluate-alignment" class="nav-link" data-scroll-target="#evaluate-alignment">4️⃣ Evaluate alignment</a></li>
+  <li><a href="#consider-biological-plausibility" id="toc-consider-biological-plausibility" class="nav-link" data-scroll-target="#consider-biological-plausibility">5️⃣ Consider biological plausibility</a></li>
+  </ul></li>
+  <li><a href="#practical-workflow" id="toc-practical-workflow" class="nav-link" data-scroll-target="#practical-workflow">Practical workflow</a></li>
+  <li><a href="#common-contamination-patterns" id="toc-common-contamination-patterns" class="nav-link" data-scroll-target="#common-contamination-patterns">Common contamination patterns</a>
+  <ul class="collapse">
+  <li><a href="#pattern-1low-level-ubiquitous-bacteria" id="toc-pattern-1low-level-ubiquitous-bacteria" class="nav-link" data-scroll-target="#pattern-1low-level-ubiquitous-bacteria">Pattern 1：Low-level ubiquitous bacteria</a></li>
+  <li><a href="#pattern-2single-read-detection" id="toc-pattern-2single-read-detection" class="nav-link" data-scroll-target="#pattern-2single-read-detection">Pattern 2：Single-read detection</a></li>
+  <li><a href="#pattern-3unexpected-organism" id="toc-pattern-3unexpected-organism" class="nav-link" data-scroll-target="#pattern-3unexpected-organism">Pattern 3：Unexpected organism</a></li>
+  <li><a href="#pattern-4batch-specific-signal" id="toc-pattern-4batch-specific-signal" class="nav-link" data-scroll-target="#pattern-4batch-specific-signal">Pattern 4：Batch-specific signal</a></li>
+  </ul></li>
+  <li><a href="#mitigation-strategies" id="toc-mitigation-strategies" class="nav-link" data-scroll-target="#mitigation-strategies">Mitigation strategies</a>
+  <ul class="collapse">
+  <li><a href="#laboratory-level" id="toc-laboratory-level" class="nav-link" data-scroll-target="#laboratory-level">Laboratory level</a></li>
+  <li><a href="#experimental-design" id="toc-experimental-design" class="nav-link" data-scroll-target="#experimental-design">Experimental design</a></li>
+  <li><a href="#bioinformatics-level" id="toc-bioinformatics-level" class="nav-link" data-scroll-target="#bioinformatics-level">Bioinformatics level</a></li>
+  </ul></li>
+  <li><a href="#key-principle" id="toc-key-principle" class="nav-link" data-scroll-target="#key-principle">Key principle</a></li>
+  <li><a href="#what-not-to-do" id="toc-what-not-to-do" class="nav-link" data-scroll-target="#what-not-to-do">What NOT to do</a></li>
+  <li><a href="#quick-takeaway" id="toc-quick-takeaway" class="nav-link" data-scroll-target="#quick-takeaway">Quick takeaway</a></li>
+  <li><a href="#related-pages" id="toc-related-pages" class="nav-link" data-scroll-target="#related-pages">Related pages</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Common contamination sources</h1>
+<p class="subtitle lead">Understanding and controlling contamination in Nanopore sequencing</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="badge-public">Public</span> This page summarizes common contamination sources in sequencing workflows and provides general strategies for identification and mitigation.</p>
+</div>
+</div>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>在 Nanopore 或任何 NGS 分析中：</p>
+<blockquote class="blockquote">
+<p><strong>contamination is not an exception — it is expected</strong></p>
+</blockquote>
+<p>因此：</p>
+<ul>
+<li>偵測到某個 organism ≠ 真正存在</li>
+<li>需要系統性判斷 contamination vs true signal</li>
+</ul>
+<hr>
+</section>
+<section id="major-contamination-sources" class="level2">
+<h2 class="anchored" data-anchor-id="major-contamination-sources">Major contamination sources</h2>
+<section id="reagent-contamination" class="level3">
+<h3 class="anchored" data-anchor-id="reagent-contamination">1️⃣ Reagent contamination</h3>
+<p>來源：</p>
+<ul>
+<li>DNA extraction kits</li>
+<li>enzymes / buffers</li>
+<li>water（即使是 nuclease-free）</li>
+</ul>
+<p>常見特徵：</p>
+<ul>
+<li>低 read count</li>
+<li>在不同樣本中反覆出現</li>
+<li>出現在 negative control</li>
+</ul>
+<p>👉 常見稱為：</p>
+<blockquote class="blockquote">
+<p>“kitome contamination”</p>
+</blockquote>
+<hr>
+</section>
+<section id="environmental-contamination" class="level3">
+<h3 class="anchored" data-anchor-id="environmental-contamination">2️⃣ Environmental contamination</h3>
+<p>來源：</p>
+<ul>
+<li>空氣（airborne microbes）</li>
+<li>操作台 / pipette</li>
+<li>操作者（skin microbiome）</li>
+</ul>
+<p>特徵：</p>
+<ul>
+<li>lab-specific pattern</li>
+<li>batch-dependent</li>
+<li>與 sample type 無關</li>
+</ul>
+<hr>
+</section>
+<section id="cross-sample-contamination" class="level3">
+<h3 class="anchored" data-anchor-id="cross-sample-contamination">3️⃣ Cross-sample contamination</h3>
+<p>來源：</p>
+<ul>
+<li>library prep 過程</li>
+<li>barcode misassignment</li>
+<li>carry-over</li>
+</ul>
+<p>特徵：</p>
+<ul>
+<li>出現在同一批次其他樣本</li>
+<li>read pattern 類似高 abundance sample</li>
+</ul>
+<hr>
+</section>
+<section id="host-derived-sequences" class="level3">
+<h3 class="anchored" data-anchor-id="host-derived-sequences">4️⃣ Host-derived sequences</h3>
+<p>來源：</p>
+<ul>
+<li>未完全去除的 host DNA</li>
+<li>reference misclassification</li>
+</ul>
+<p>特徵：</p>
+<ul>
+<li>大量 reads</li>
+<li>alignment 到 host genome</li>
+<li>Kraken2 可能誤分類</li>
+</ul>
+<hr>
+</section>
+<section id="database-related-artifacts" class="level3">
+<h3 class="anchored" data-anchor-id="database-related-artifacts">5️⃣ Database-related artifacts</h3>
+<p>來源：</p>
+<ul>
+<li>不完整 database</li>
+<li>annotation 錯誤</li>
+<li>近緣物種</li>
+</ul>
+<p>特徵：</p>
+<ul>
+<li>Kraken2 hits 不穩定</li>
+<li>minimap2 alignment 不一致</li>
+<li>分類層級模糊（genus / family）</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="how-to-identify-contamination" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-identify-contamination">How to identify contamination</h2>
+<section id="use-negative-controls" class="level3">
+<h3 class="anchored" data-anchor-id="use-negative-controls">1️⃣ Use negative controls</h3>
+<p>👉 最重要的策略</p>
+<p>觀察：</p>
+<ul>
+<li>是否出現在 control</li>
+<li>abundance 是否相近</li>
+</ul>
+<hr>
+</section>
+<section id="check-reproducibility" class="level3">
+<h3 class="anchored" data-anchor-id="check-reproducibility">2️⃣ Check reproducibility</h3>
+<ul>
+<li>是否在多個樣本中出現？</li>
+<li>是否跨 batch？</li>
+</ul>
+<p>👉 高一致性但低量 → 常見 contamination</p>
+<hr>
+</section>
+<section id="compare-abundance" class="level3">
+<h3 class="anchored" data-anchor-id="compare-abundance">3️⃣ Compare abundance</h3>
+<ul>
+<li>true pathogen → 通常有較高 signal</li>
+<li>contamination → 通常低且分散</li>
+</ul>
+<hr>
+</section>
+<section id="evaluate-alignment" class="level3">
+<h3 class="anchored" data-anchor-id="evaluate-alignment">4️⃣ Evaluate alignment</h3>
+<p>使用 minimap2：</p>
+<ul>
+<li>是否有良好 coverage？</li>
+<li>是否為局部 alignment？</li>
+<li>是否集中在 conserved region？</li>
+</ul>
+<hr>
+</section>
+<section id="consider-biological-plausibility" class="level3">
+<h3 class="anchored" data-anchor-id="consider-biological-plausibility">5️⃣ Consider biological plausibility</h3>
+<p>👉 關鍵問題：</p>
+<ul>
+<li>這個 organism 在這個 sample 合理嗎？</li>
+<li>是否符合已知 biology？</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="practical-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="practical-workflow">Practical workflow</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[Detection] --&gt; B{In negative control?}
+    B --&gt;|Yes| C[Likely contamination]
+    B --&gt;|No| D[Check abundance]
+
+    D --&gt; E{Low signal?}
+    E --&gt;|Yes| F[Possible contamination]
+    E --&gt;|No| G[Check alignment]
+
+    G --&gt; H{Good coverage?}
+    H --&gt;|No| I[Suspect artifact]
+    H --&gt;|Yes| J[Check context]
+
+    J --&gt; K{Biologically plausible?}
+    K --&gt;|No| L[Uncertain]
+    K --&gt;|Yes| M[Supported detection]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="common-contamination-patterns" class="level2">
+<h2 class="anchored" data-anchor-id="common-contamination-patterns">Common contamination patterns</h2>
+<section id="pattern-1low-level-ubiquitous-bacteria" class="level3">
+<h3 class="anchored" data-anchor-id="pattern-1low-level-ubiquitous-bacteria">Pattern 1：Low-level ubiquitous bacteria</h3>
+<ul>
+<li>多樣本出現</li>
+<li>read count 低</li>
+<li>control 中也存在</li>
+</ul>
+<p>👉 通常為 reagent / environmental contamination</p>
+<hr>
+</section>
+<section id="pattern-2single-read-detection" class="level3">
+<h3 class="anchored" data-anchor-id="pattern-2single-read-detection">Pattern 2：Single-read detection</h3>
+<ul>
+<li>只有 1–2 reads</li>
+<li>無 alignment support</li>
+</ul>
+<p>👉 不應解讀為陽性</p>
+<hr>
+</section>
+<section id="pattern-3unexpected-organism" class="level3">
+<h3 class="anchored" data-anchor-id="pattern-3unexpected-organism">Pattern 3：Unexpected organism</h3>
+<ul>
+<li>與 sample biology 不符</li>
+<li>無其他 supporting evidence</li>
+</ul>
+<p>👉 高度懷疑 contamination</p>
+<hr>
+</section>
+<section id="pattern-4batch-specific-signal" class="level3">
+<h3 class="anchored" data-anchor-id="pattern-4batch-specific-signal">Pattern 4：Batch-specific signal</h3>
+<ul>
+<li>同一批次樣本出現</li>
+<li>不同批次消失</li>
+</ul>
+<p>👉 可能為 batch contamination</p>
+<hr>
+</section>
+</section>
+<section id="mitigation-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="mitigation-strategies">Mitigation strategies</h2>
+<section id="laboratory-level" class="level3">
+<h3 class="anchored" data-anchor-id="laboratory-level">Laboratory level</h3>
+<ul>
+<li>使用 clean workspace</li>
+<li>分區操作（pre-PCR / post-PCR）</li>
+<li>使用 filter tips</li>
+<li>定期清潔設備</li>
+</ul>
+<hr>
+</section>
+<section id="experimental-design" class="level3">
+<h3 class="anchored" data-anchor-id="experimental-design">Experimental design</h3>
+<ul>
+<li>加入 negative controls</li>
+<li>使用 technical replicates</li>
+<li>避免過度 multiplexing</li>
+</ul>
+<hr>
+</section>
+<section id="bioinformatics-level" class="level3">
+<h3 class="anchored" data-anchor-id="bioinformatics-level">Bioinformatics level</h3>
+<ul>
+<li>host depletion</li>
+<li>filtering low-abundance reads</li>
+<li>cross-sample comparison</li>
+<li>database curation</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="key-principle" class="level2">
+<h2 class="anchored" data-anchor-id="key-principle">Key principle</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Contamination cannot be completely eliminated, but it can be recognized and managed.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="what-not-to-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-not-to-do">What NOT to do</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>以下做法容易導致錯誤結論：</p>
+</div>
+</div>
+<ul>
+<li>將所有 detection 視為真實存在</li>
+<li>忽略 negative control</li>
+<li>不做 alignment validation</li>
+<li>過度解讀低 read count</li>
+<li>不考慮 sample context</li>
+</ul>
+<hr>
+</section>
+<section id="quick-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="quick-takeaway">Quick takeaway</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>在 Nanopore 分析中，contamination 是常態而非例外。<br>
+可靠的結果來自於：control、alignment、abundance 與 biological context 的整合判讀。</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="related-pages" class="level2">
+<h2 class="anchored" data-anchor-id="related-pages">Related pages</h2>
+<ul>
+<li><a href="../05_workflows/Interpretation_framework.html">Interpretation framework</a></li>
+<li><a href="../05_workflows/Nanopore_workflow.html">Nanopore workflow</a></li>
+<li><a href="Kraken2_vs_minimap2.qmd">Kraken2 vs minimap2</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
