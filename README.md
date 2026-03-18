@@ -1,4 +1,4 @@
-# ~~Nano Memo
+# Nano Memo
 
 A personal Quarto website for quick reference on Oxford Nanopore sequencing and analysis.~~
 
@@ -16,20 +16,6 @@ This repository is intended as a personal technical memo site for:
 This repository is not affiliated with Oxford Nanopore Technologies.
 
 Internal workflows, decision trees, and sensitive operational notes should be maintained separately in a private repository.
-
-## Local preview
-
-```bash
-quarto preview
-```
-
-## Render website
-
-```bash
-quarto render
-```
-
-The rendered website will be placed in the `docs/` folder, which can be used for GitHub Pages.
 
 ## Suggested next pages
 
