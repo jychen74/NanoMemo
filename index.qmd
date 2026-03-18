@@ -1,5 +1,5 @@
 ---
-subtitle: "Personal notes for Oxford Nanopore sequencing and analysis"
+subtitle: "A structured knowledge base for Nanopore sequencing, covering concepts, QC, alignment, taxonomy, and workflows."
 ---
 <!-- 
 ::: {.callout-note}
