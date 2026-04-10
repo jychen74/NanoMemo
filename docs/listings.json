@@ -1,0 +1,42 @@
+[
+  {
+    "listing": "/workflows.html",
+    "items": [
+      "/05_workflows/Basic_concepts_SPRI_beads.html",
+      "/05_workflows/Contamination_sources.html",
+      "/05_workflows/Host_depletion_strategy.html",
+      "/05_workflows/Interpretation_framework.html",
+      "/05_workflows/kraken2_vs_minimap2.html",
+      "/05_workflows/Nanopore_workflow.html",
+      "/05_workflows/Read_count_vs_confidence.html",
+      "/05_workflows/Workflow_sera_mag_select_ampure_alternative.html"
+    ]
+  },
+  {
+    "listing": "/sequencing_qc.html",
+    "items": [
+      "/02_sequencing_qc/fastq_qc.html",
+      "/02_sequencing_qc/nanoplot.html",
+      "/02_sequencing_qc/sequencing_depth.html"
+    ]
+  },
+  {
+    "listing": "/basic_concepts.html",
+    "items": [
+      "/01_basic_concepts/N50.html",
+      "/01_basic_concepts/Q_score.html"
+    ]
+  },
+  {
+    "listing": "/alignment.html",
+    "items": [
+      "/03_alignment/minimap2.html"
+    ]
+  },
+  {
+    "listing": "/taxonomy.html",
+    "items": [
+      "/04_taxonomy/kraken2.html"
+    ]
+  }
+]
