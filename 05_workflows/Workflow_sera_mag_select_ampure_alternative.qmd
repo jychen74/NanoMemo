@@ -1,0 +1,164 @@
+---
+title: "Sera-Mag Select 作為 AMPure XP 替代方案"
+subtitle: "從官方手冊、公開 protocol 與 Nanopore 應用案例整理磁珠 clean-up 的實作重點"
+---
+
+::: {.callout-note}
+<span class="badge-public">Public</span>
+本頁整理 Cytiva Sera-Mag Select 作為 AMPure XP 類替代磁珠的使用定位、適用情境、操作重點與限制。這一頁偏向 workflow decision note，適合做為 PCR clean-up、size selection 與部分 Nanopore 前處理的參考。
+:::
+
+## Definition
+
+Sera-Mag Select 是 Cytiva 推出的 ready-to-use 磁珠試劑，用於 **PCR clean-up** 與 **DNA size selection**。它屬於 SPRI 類磁珠系統，可透過調整 reagent:sample ratio 改變 DNA 回收範圍。
+
+- 它是什麼：現成型 DNA clean-up / size selection reagent
+- 它主要拿來做什麼：移除 primers、adapters、buffer components、進行 left-side / right-side / dual-side selection
+- 它不等於什麼：它不是所有 DNA workflow 的萬用解；特別是高分子量 gDNA / 長片段 Nanopore DNA，仍要額外驗證是否合適
+
+## Why it matters
+
+AMPure XP 雖然常見，但成本、採購、包裝規格與使用量不一定總是最理想。Sera-Mag Select 的價值在於：
+
+- 官方文件明確定位它可用於 PCR clean-up 與 size selection
+- 官方指出，多數 AMPure XP / SPRIselect workflow 可直接套用到 Sera-Mag Select
+- 公開 protocol 顯示研究者確實用 minimal changes 由 AMPure XP 轉到 Sera-Mag Select
+- 文獻中也已經有 Nanopore workflow 使用案例
+
+因此，這一頁的重點不是「推哪個品牌」，而是幫助判斷：
+
+- 什麼情況可直接替換
+- 什麼情況要先做小規模驗證
+- 哪些條件最容易造成結果差異
+
+## How to interpret
+
+### In practice
+
+#### 1. 作為 AMPure XP 類替代品，整體上是合理的
+
+若你的應用是：
+
+- PCR product clean-up
+- primer / adapter removal
+- 一般 amplicon or fragmented DNA size selection
+- 既有 protocol 原本使用 AMPure XP 或 SPRIselect
+
+那麼 Sera-Mag Select 通常可視為合理替代選項。
+
+#### 2. 官方建議的幾個關鍵條件
+
+使用前要特別注意：
+
+- 冷藏保存，避免凍結
+- 使用前充分回溫並混勻
+- 黏稠度較高，建議使用 reverse pipetting
+- washing step 建議使用 **85% ethanol**
+- 樣本體積太小時 reproducibility 可能較差
+
+#### 3. ratio 的實務理解
+
+官方文件提供的邏輯大致可整理如下：
+
+- **Recovery mode**：偏向最大回收，常用於 PCR clean-up
+- **Left-side size selection**：保留較大 DNA、排除短片段
+- **Right-side size selection**：兩輪操作，保留較小 DNA
+- **Dual-side size selection**：夾出中間範圍，但條件敏感、yield 會下降
+
+對 PCR clean-up 而言，公開 protocols.io protocol 建議：
+
+- 一般 primer 長度可先從 **0.8:1** 開始
+- 若 primer 較長，可嘗試 **0.65:1**
+- 若 clean-up 後仍看得到 primer dimer，可再試較低 ratio
+
+#### 4. 在 Nanopore workflow 中的定位
+
+Sera-Mag Select 已出現在 Nanopore 相關文獻 workflow 中，例如用於：
+
+- RCA product clean-up
+- T7 endonuclease 處理後純化
+- library prep 中 DNA purification
+
+但要注意：
+
+- 這代表它**可用於**某些 ONT workflow
+- 不代表它能解決 Nanopore 本身的 homopolymer / basecalling 誤差
+- 若你的目標是高分子量、長讀長保留，仍需以自己的 sample type 做驗證
+
+### What to compare with
+
+在決定是否改用 Sera-Mag Select 時，建議至少比較以下項目：
+
+- 與原本 AMPure XP protocol 是否只差在 bead brand，還是連 wash / drying / elution 也改了
+- 目標是單純 clean-up，還是要做明確 size selection
+- 目標 DNA 是 PCR product、fragmented DNA、RCA product 還是 HMW gDNA
+- 是否需要非常緊的 size distribution
+- 自己實驗室的 magnet 與 pipetting 操作是否穩定
+- 乾燥時間與回收率之間的平衡
+
+建議最少做一次小規模 validation：
+
+- 同一批樣本
+- 同一 input volume
+- AMPure XP vs Sera-Mag Select
+- 測試 1–2 個 bead ratios
+- 比較 Qubit recovery、gel / Bioanalyzer profile、下游成功率
+
+## Common pitfalls
+
+::: {.callout-warning}
+Sera-Mag Select 最大的風險不是「不能用」，而是以為只要把瓶子換掉就會得到完全相同結果。真正影響結果的常常是 ethanol、ratio、drying、pipetting 與 sample composition。
+:::
+
+- 直接照搬 AMPure XP protocol，但沒注意 Sera-Mag Select 官方偏向使用 85% ethanol
+- 忽略磁珠黏稠度，體積小時造成 dispensing 誤差，尤其 dual-side selection 更敏感
+- 對高分子量 DNA 直接沿用 PCR clean-up 邏輯，結果造成回收差或 elution 困難
+- 把 Nanopore sequencing error 誤解為 clean-up 失敗
+- drying 太久導致 DNA 難以 elute，或 drying 不足造成 ethanol carry-over
+- 覺得社群上說「差不多」就直接全流程改用，卻沒有做自己樣本的 validation
+
+## Tools / commands
+
+### Common tools
+- Cytiva Sera-Mag Select
+- magnetic rack / magnet plate
+- freshly prepared 85% ethanol
+- TE buffer 或 nuclease-free water
+- Qubit / gel / Bioanalyzer / TapeStation
+
+### Example validation plan
+
+```text
+Goal: compare AMPure XP and Sera-Mag Select for PCR clean-up
+
+Sample: same PCR product, 50 µL each
+Conditions:
+- AMPure XP 0.8x
+- Sera-Mag Select 0.8x
+- Sera-Mag Select 0.65x
+
+Readouts:
+- Qubit recovery
+- gel / Bioanalyzer size profile
+- residual primer dimer
+- downstream PCR / library prep success
+```
+
+## Quick takeaway
+
+::: {.callout-tip}
+Sera-Mag Select 很適合作為 AMPure XP 類替代方案的候選，特別是在 PCR clean-up 與一般 size selection workflow 中。真正要做的不是直接相信「可替代」，而是用你自己的 sample type、ratio 與 QC 指標先做小規模驗證，再決定是否正式替換進常規流程。
+:::
+
+## References
+
+- Cytiva. *Sera-Mag Select User Guide* (29435668 AB).
+- Cytiva. *Sera-Mag Select: Size Selection and PCR Clean-up Reagent* brochure.
+- Eiler A, Garvang E. *Magnetic bead cleaning of PCR products with Cytiva Sera-Mag Select*. protocols.io, 2024.
+- Ben Chehida S, Filloux D, Fernandez E, et al. *Nanopore Sequencing Is a Credible Alternative to Recover Complete Genomes of Geminiviruses*. Microorganisms. 2021;9:903.
+
+## Related pages
+
+- [SPRI 磁珠與 bead ratio：DNA clean-up / size selection 的基本概念](basic-concepts-spri-beads.qmd)
+- [Nanopore library prep clean-up checkpoints](#)
+- [DNA purity 與 clean-up 後 QC 判讀](#)
